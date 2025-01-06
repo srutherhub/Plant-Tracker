@@ -5,10 +5,9 @@ import { createClient, SupabaseClient } from "@supabase/supabase-js";
 export class AuthenticationService {
   private supabase: SupabaseClient;
   constructor() {
-    this.supabase = createClient(
-      "https://ofpcbhmcwsqxjmfofpuy.supabase.co",
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9mcGNiaG1jd3NxeGptZm9mcHV5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzYxNjYwNjMsImV4cCI6MjA1MTc0MjA2M30.yabJlBWOWxaaLIqz9cKDrZFhZPTIcp8BsexglMEvAHU"
-    );
+    const db_url = process.env.DB_URL;
+    const db_key = process.env.DB_KEY;
+    this.supabase = createClient(db_url, db_key);
   }
 
   async signUp(email: string, password: string) {
@@ -44,5 +43,9 @@ export class AuthenticationService {
       throw new Error(error.message);
     }
     return true;
+  }
+
+  async dbConnection() {
+    return this.supabase;
   }
 }
