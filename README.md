@@ -17,3 +17,23 @@ A webapp to track when to water your house plants and other things related to pl
 1. Set up the Node JS server and handle basic authentication with Supabase.
 2. Set up the data model for the web app and DB tables
 3. Set up the front end
+
+# APIs
+
+## Authentication
+
+| **Method** | **Endpoint**             |
+| ---------- | ------------------------ |
+| POST       | `authentication/signup`  |
+| POST       | `authentication/signin`  |
+| POST       | `authentication/signout` |
+| POST       | `authentication/user`    |
+
+## Database
+
+| **Method** | **Endpoint**     |
+| ---------- | ---------------- |
+| GET        | `db/plant`       |
+| DELETE     | `db/deleteplant` |
+| PATCH      | `db/updateplant` |
+| POST       | `db/addplant`    |
