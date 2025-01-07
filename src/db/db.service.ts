@@ -12,6 +12,7 @@ export class DbService {
     if (error) {
       throw new Error(error.message);
     }
+    if (data.length === 0) return null;
     return data;
   }
 
