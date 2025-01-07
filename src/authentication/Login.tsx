@@ -7,20 +7,20 @@ import { useAuth } from './useAuth'
 export function Login() {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
-  const { loading, error, session, auth } = useAuth()
+  const { error, auth } = useAuth({ endpoint: "authentication/signin" })
 
   const handleOnClick = () => {
     auth(email, password)
   }
 
-  console.log(loading, error, session)
   return (
     <div style={{ display: "flex", justifyContent: "center" }}>
-      <Box width="24rem">
+      <Box width="24rem" alignItems="center">
         <p>Sign in or Sign up</p>
         <TextInput placeholder="Email" setData={setEmail} />
         <TextInput placeholder="Password" type="password" setData={setPassword} />
         <Button name="Sign in" onclick={handleOnClick} />
+        <>{error}</>
       </Box>
     </div>)
 }

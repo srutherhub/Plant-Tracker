@@ -4,7 +4,7 @@ export function Box({ children, ...props }) {
       {...props}
       style={{
         display: "flex",
-        alignItems: "center",
+        alignItems: props.alignItems || "",
         flexDirection: "column",
         border: "1px solid gray",
         borderBottom: "4px solid green",
