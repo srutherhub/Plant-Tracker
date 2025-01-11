@@ -1,0 +1,12 @@
+:root {
+  /*Colors*/
+  --base-bg: rgb(216, 210, 210);
+  --primary-bg: rgb(233, 233, 237);
+  --secondary-bg: #d0d0d7;
+  --primary: green;
+  --primary-lt: rgb(175, 202, 175);
+  --border: gray;
+
+  /*UI Elements*/
+  --primary-border-rad: 0.5rem;
+}

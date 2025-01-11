@@ -1,6 +1,6 @@
 import { useCallback, useState } from "react";
 
-interface IPlant {
+export interface IPlant {
   id: string;
   user_id: string | null;
   created_at: string | null;

@@ -2,7 +2,7 @@ import './App.css'
 import { useState, useEffect } from 'react'
 import { Login } from './authentication/Login'
 import { Logout } from './authentication/Logout'
-import { Plants } from './db/plants/Plants'
+import { Plants } from './db/plants/PlantsTable'
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false)

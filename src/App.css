@@ -1,5 +1,8 @@
+@import "./theme.css";
+@import "bootstrap-icons/font/bootstrap-icons.css";
+
 html {
-  background-color: rgb(216, 210, 194);
+  background-color: var(--base-bg);
   font-family: "Inter", serif;
 }
 
