@@ -1,4 +1,5 @@
 import { useCallback, useState } from "react";
+import { useNavigate } from "react-router";
 
 interface IRequestOptions {
   endpoint:
@@ -12,6 +13,7 @@ export function useAuth(props: IRequestOptions) {
   const { endpoint } = props;
   const fetch_url = base_url + endpoint;
 
+  const redirect = useNavigate();
   const [session, setSession] = useState<null | string>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -32,10 +34,10 @@ export function useAuth(props: IRequestOptions) {
         setSession(result);
         if (endpoint == "authentication/signout") {
           sessionStorage.clear();
-          window.location.reload();
+          redirect("/auth");
         } else {
           sessionStorage.setItem("accessToken", result.session.access_token);
-          window.location.reload();
+          redirect("/app");
         }
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } catch (err: any) {

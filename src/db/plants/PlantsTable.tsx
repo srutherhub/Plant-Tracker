@@ -1,22 +1,20 @@
 import { useEffect, useState } from "react";
-import { usePlants } from "./usePlants";
 import { useDeletePlant } from "./useDeletePlant";
 import { Box } from "../../lib/Box";
 import { Icon } from "../../lib/Icon";
 import { IPlant } from "./usePlants";
 
+interface IPlantTableProps {
+  data: IPlant[] | null | undefined
+}
 
-export function Plants() {
+export function PlantsTable(props: IPlantTableProps) {
+  const { data } = props
   const [plantsData, setPlantsData] = useState<IPlant[] | null | undefined>(null)
-  const { data, plants } = usePlants();
-  const { response, loading, error, deleteplant } = useDeletePlant()
+  const { data: response, loading, error, deleteplant } = useDeletePlant()
 
-  const numTableCols: string = 100 / 6 + "%"
+  const numTableCols: string = 100 / 7 + "%"
   const rowStyle = { padding: "0.5rem", width: numTableCols };
-
-  useEffect(() => {
-    plants();
-  }, []);
 
   useEffect(() => {
     setPlantsData(data)
@@ -27,7 +25,7 @@ export function Plants() {
       await deleteplant(id)
       setPlantsData(plantsData?.filter((item) => item.id !== id))
     } catch {
-      console.log(error)
+      console.log(response, error)
     }
   }
 
@@ -39,7 +37,6 @@ export function Plants() {
           display: "flex",
           borderBottom: "1px solid var(--border)",
           backgroundColor: getBackgroundColor(index),
-          fontSize: "0.875rem",
         }}
       >
         <p style={rowStyle}>{item.name} </p>
@@ -47,6 +44,7 @@ export function Plants() {
         <p style={rowStyle}>{item.type}</p>
         <p style={rowStyle}>{item.last_watered}</p>
         <p style={rowStyle}>{item.next_watering}</p>
+        <p style={rowStyle}>{item.watering_frequency}</p>
         <div style={{ display: "flex", flexDirection: "row", justifyContent: "end", alignContent: "center", padding: "0.5rem", width: numTableCols }}>
           <Icon iconName="bi bi-pencil" />
           <Icon iconName="bi bi-trash3" loading={loading} onclick={() => { handleDelete(item.id) }} />
@@ -72,6 +70,7 @@ export function Plants() {
             <p style={rowStyle}>Type</p>
             <p style={rowStyle}>Last Watered</p>
             <p style={rowStyle}>Next Watering</p>
+            <p style={rowStyle}>Watering Frequency (Days)</p>
             <p style={rowStyle}></p>
           </div>
           {plantsMap}

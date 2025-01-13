@@ -6,9 +6,12 @@ html {
   font-family: "Inter", serif;
 }
 
-h3,
-h4,
-p {
+h3 {
+  padding: 0;
+  margin: 0;
+}
+
+h4 {
   padding: 0;
   margin: 0;
 }

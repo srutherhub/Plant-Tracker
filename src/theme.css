@@ -10,3 +10,21 @@
   /*UI Elements*/
   --primary-border-rad: 0.5rem;
 }
+
+/*
+| Element | Font Size (rem) | Font Size (px) |
+|---------|-----------------|----------------|
+| div     | 1rem            | 16px           |
+| p       | 0.875rem        | 14px           |
+| h3      | [Specify Size]  | [Specify Size] |
+*/
+
+p {
+  padding: 0;
+  margin: 0;
+  font-size: 0.875rem;
+}
+
+h3 {
+  font-size: 1.275rem;
+}

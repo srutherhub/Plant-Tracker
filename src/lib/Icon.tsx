@@ -11,7 +11,7 @@ export function Icon(props: IIcon) {
     return <i
       className={loadingIconName || iconName}
       onClick={onclick}
-      style={{ paddingLeft: "0.5rem", color: "var(--border)" }}
+      style={{ paddingLeft: "0.5rem", color: "var(--border)", cursor: "pointer" }}
     ></i>;
   } else {
     return (

@@ -10,6 +10,7 @@ export interface IPlant {
   last_watered: string | null;
   next_watering: string | null;
   location: string | null;
+  watering_frequency: number | null;
 }
 
 export function usePlants() {
