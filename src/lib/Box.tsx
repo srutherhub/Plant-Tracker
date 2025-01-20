@@ -12,6 +12,7 @@ export function Box({ children, ...props }) {
         borderBottom: props.borderBottom || "4px solid var(--primary)",
         padding: props.padding || "0.5rem",
         width: props.width || "",
+        height: props.height || "",
         backgroundColor: props.backgroundColor || "var(--primary-bg)",
         borderRadius: "var(--primary-border-rad)"
       }}

@@ -5,12 +5,17 @@ export interface IPlant {
   user_id: string | null;
   created_at: string | null;
   name: string | null;
-  type: string | null;
+  type: EPlantType;
   species: string | null;
   last_watered: string | null;
   next_watering: string | null;
   location: string | null;
   watering_frequency: number | null;
+}
+
+export enum EPlantType {
+  indoor = "Indoor",
+  outdoor = "Outdoor",
 }
 
 export function usePlants() {

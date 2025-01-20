@@ -9,6 +9,7 @@ export function Icon(props: IIcon) {
   const { iconName, loading, loadingIconName, onclick } = props;
   if (loading === true) {
     return <i
+      id="Icon"
       className={loadingIconName || iconName}
       onClick={onclick}
       style={{ paddingLeft: "0.5rem", color: "var(--border)", cursor: "pointer" }}
@@ -16,6 +17,7 @@ export function Icon(props: IIcon) {
   } else {
     return (
       <i
+        id="Icon"
         className={iconName}
         onClick={onclick}
         style={{ paddingLeft: "0.5rem", color: "var(--border)" }}

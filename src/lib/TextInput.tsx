@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 
 interface ITextInputProps {
-  setData: React.Dispatch<React.SetStateAction<string>>;
-  placeholder: string | null;
+  setData: React.Dispatch<React.SetStateAction<any>>;
+  placeholder?: string | null | undefined;
   type?: string;
+  value?: string
 }
 
 export function TextInput(props: ITextInputProps) {
@@ -19,22 +20,12 @@ export function TextInput(props: ITextInputProps) {
   };
 
   return (
-    <div style={{ paddingBottom: "1rem" }}>
+    <div>
       <input
         type={type}
         value={val}
         onChange={handleChange}
         placeholder={placeholder}
-        style={{
-          background: "transparent",
-          outline: "none",
-          width: "16rem",
-          height: "2rem",
-          border: "1px solid gray",
-          fontFamily: "Inter, serif",
-          fontSize: "1rem",
-          padding: "0.25rem",
-        }}
       />
     </div>
   );

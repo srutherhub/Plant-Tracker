@@ -28,3 +28,35 @@ p {
 h3 {
   font-size: 1.275rem;
 }
+
+input {
+  background: transparent;
+  outline: none;
+  width: 16rem;
+  height: 2rem;
+  border: 1px solid var(--border);
+  font-family: "Inter", serif;
+  font-size: 1rem;
+  padding: 0 0.25rem;
+}
+
+select {
+  appearance: none; /* Removes default styling (e.g., arrow) */
+  -webkit-appearance: none; /* For Safari */
+  -moz-appearance: none; /* For Firefox */
+  background: transparent url("./assets/chevron-down.svg") no-repeat right
+    center;
+  background-size: 1rem;
+  outline: none;
+  width: 16.58rem;
+  height: 2rem;
+  border: 1px solid var(--border);
+  font-family: "Inter", serif;
+  font-size: 1rem;
+  padding: 0 0.25rem;
+}
+
+select option {
+  font-family: "Inter", serif;
+  font-size: 1rem;
+}
