@@ -19,7 +19,6 @@ export class DbService {
   async addPlant(input: Plant) {
     const supabase = await this.authenticationService.dbConnection();
     const { data, error } = await supabase.from("plants").insert(input);
-    console.log(error);
     if (error) {
       throw new Error(error.message);
     }
@@ -35,8 +34,20 @@ export class DbService {
     return true;
   }
 
-  async updatePlant(id: string, input: Plant) {
+  async updatePlant(id: string, input) {
     const supabase = await this.authenticationService.dbConnection();
+
+    const removeEmptyProps = (obj) => {
+      return Object.fromEntries(
+        Object.entries(obj).filter(
+          ([key, value]) =>
+            value !== null && value !== "" && value !== undefined
+        )
+      );
+    };
+
+    input = removeEmptyProps(input);
+
     const { data, error } = await supabase
       .from("plants")
       .update(input)
