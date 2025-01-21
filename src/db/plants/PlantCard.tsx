@@ -2,18 +2,18 @@ import { useState, useEffect } from "react";
 import { Box } from "../../lib/Box";
 import { Icon } from "../../lib/Icon";
 import { TextInput } from "../../lib/TextInput";
-import { IPlant } from "./usePlants";
-import { EPlantType } from "./usePlants";
+import { Plant } from "../../models/plant";
+import { EPlantType } from "../../models/plant";
 import { useDeletePlant } from "./useDeletePlant";
 import { useUpdatePlant } from "./useUpdatePlant";
 
 interface IPlantCardProps {
-  data: IPlant | null | undefined;
+  data: Plant | null | undefined;
 }
 
 export function PlantCard(props: IPlantCardProps) {
   const { data } = props;
-  const [plantData, setPlantData] = useState<IPlant | null | undefined>();
+  const [plantData, setPlantData] = useState<Plant | null | undefined>();
   const [plantName, setPlantName] = useState<string | null>("");
   const [plantSpecies, setPlantSpecies] = useState<string | null>("");
   const [plantLocation, setPlantLocation] = useState<string | null>("");
@@ -21,11 +21,15 @@ export function PlantCard(props: IPlantCardProps) {
   const [plantType, setPlantType] = useState<EPlantType>(EPlantType.indoor);
   const [isEditable, setIsEditable] = useState<boolean>(false);
   const { data: response, loading, error, deleteplant } = useDeletePlant();
-  const { updateplant } = useUpdatePlant();
+  const {
+    data: updateResponse,
+    loading: updateLoading,
+    updateplant,
+  } = useUpdatePlant();
 
   useEffect(() => {
     setPlantData(data);
-    setPlantType(plantData?.type)
+    setPlantType(plantData?.type);
   }, [data]);
 
   const handleDelete = async (id: string) => {
@@ -39,9 +43,9 @@ export function PlantCard(props: IPlantCardProps) {
 
   const handleUpdate = async (
     id: string | null | undefined,
-    input: IPlant | null | undefined
+    input: Plant | null | undefined
   ) => {
-    const plantCopy: IPlant = {
+    const plantCopy: Plant = {
       ...input,
       ...(plantName && { name: plantName }),
       ...(plantSpecies && { species: plantSpecies }),
@@ -63,9 +67,15 @@ export function PlantCard(props: IPlantCardProps) {
     }
   };
 
+  useEffect(() => {
+    if (updateResponse) setPlantData(updateResponse)
+  }, [updateLoading]);
+
   const handleSelect = (e) => {
-    setPlantType(e.target.value)
-  }
+    setPlantType(e.target.value);
+  };
+
+
 
   const itemStyle = {
     padding: "0.5rem",
@@ -132,12 +142,8 @@ export function PlantCard(props: IPlantCardProps) {
                 <div style={itemStyle}>
                   <p>Type</p>
                   <select value={plantType} onChange={handleSelect}>
-                    <option value={EPlantType.indoor}>
-                      Indoor
-                    </option>
-                    <option value={EPlantType.outdoor}>
-                      Outdoor
-                    </option>
+                    <option value={EPlantType.indoor}>Indoor</option>
+                    <option value={EPlantType.outdoor}>Outdoor</option>
                   </select>
                 </div>
                 <div style={itemStyle}>
@@ -149,16 +155,18 @@ export function PlantCard(props: IPlantCardProps) {
                 </div>
                 <div style={itemStyle}>
                   <p>Watering Frequency (Days)</p>
-                  <TextInput type="number" setData={setPlantFreq} placeholder={plantData?.watering_frequency} />
+                  <TextInput
+                    type="number"
+                    setData={setPlantFreq}
+                    placeholder={plantData?.watering_frequency.toString()}
+                  />
                 </div>
               </div>
             </div>
-            <div>
-
-            </div>
+            <div></div>
           </Box>
         )}
-      </div >
+      </div>
     );
   } else {
     return (
@@ -200,11 +208,11 @@ export function PlantCard(props: IPlantCardProps) {
             </div>
             <div style={itemStyle}>
               <p>Next Watering Date</p>
-              <p>{plantData?.next_watering}</p>
+              <p>{plantData?.next_watering.toString()}</p>
             </div>
             <div style={itemStyle}>
               <p>Last Watered Date</p>
-              <p>{plantData?.last_watered}</p>
+              <p>{plantData?.last_watered.toString()}</p>
             </div>
             <div>
               <div style={itemStyle}>

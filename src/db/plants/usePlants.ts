@@ -1,29 +1,12 @@
 import { useCallback, useState } from "react";
-
-export interface IPlant {
-  id: string;
-  user_id: string | null;
-  created_at: string | null;
-  name: string | null;
-  type: EPlantType;
-  species: string | null;
-  last_watered: string | null;
-  next_watering: string | null;
-  location: string | null;
-  watering_frequency: number | null;
-}
-
-export enum EPlantType {
-  indoor = "Indoor",
-  outdoor = "Outdoor",
-}
+import { Plant } from "../../models/plant";
 
 export function usePlants() {
   const base_url = import.meta.env.VITE_SERVER_URL;
   const endpoint = "db/getplants";
   const fetch_url = base_url + endpoint;
 
-  const [data, setData] = useState<null | IPlant[]>(null);
+  const [data, setData] = useState<null | Plant[]>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 

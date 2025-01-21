@@ -1,17 +1,17 @@
 import { useCallback, useState } from "react";
-import { IPlant } from "./usePlants";
+import { Plant } from "../../models/plant";
 
 export function useUpdatePlant() {
   const base_url = import.meta.env.VITE_SERVER_URL;
   const endpoint = "db/updateplant";
   const fetch_url = base_url + endpoint;
 
-  const [data, setData] = useState<null | IPlant[]>(null);
+  const [data, setData] = useState<null | Plant>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
   const updateplant = useCallback(
-    async (id: string, input: IPlant) => {
+    async (id: string, input: Plant) => {
       setLoading(true);
       try {
         const response = await fetch(fetch_url, {
@@ -23,7 +23,7 @@ export function useUpdatePlant() {
           throw new Error("Failed update plant data");
         }
         const result = await response.json();
-        setData(result);
+        setData(result[0]);
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } catch (err: any) {
         setError(err.message || "An error occured");
@@ -33,5 +33,5 @@ export function useUpdatePlant() {
     },
     [fetch_url]
   );
-  return { loading, error, data, updateplant };
+  return { loading, error, data , updateplant };
 }

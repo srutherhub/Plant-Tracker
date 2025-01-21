@@ -2,15 +2,15 @@ import { useEffect, useState } from "react";
 import { useDeletePlant } from "./useDeletePlant";
 import { Box } from "../../lib/Box";
 import { Icon } from "../../lib/Icon";
-import { IPlant } from "./usePlants";
+import { Plant } from "../../models/plant";
 
 interface IPlantTableProps {
-  data: IPlant[] | null | undefined
+  data: Plant[] | null | undefined
 }
 
 export function PlantsTable(props: IPlantTableProps) {
   const { data } = props
-  const [plantsData, setPlantsData] = useState<IPlant[] | null | undefined>(null)
+  const [plantsData, setPlantsData] = useState<Plant[] | null | undefined>(null)
   const { data: response, loading, error, deleteplant } = useDeletePlant()
 
   const numTableCols: string = 100 / 7 + "%"
@@ -29,7 +29,7 @@ export function PlantsTable(props: IPlantTableProps) {
     }
   }
 
-  const plantsMap = plantsData?.map((item: IPlant, index: number) => {
+  const plantsMap = plantsData?.map((item: Plant, index: number) => {
     return (
       <div
         key={index}
@@ -42,8 +42,8 @@ export function PlantsTable(props: IPlantTableProps) {
         <p style={rowStyle}>{item.name} </p>
         <p style={rowStyle}>{item.species}</p>
         <p style={rowStyle}>{item.type}</p>
-        <p style={rowStyle}>{item.last_watered}</p>
-        <p style={rowStyle}>{item.next_watering}</p>
+        <p style={rowStyle}>{item.last_watered.toString()}</p>
+        <p style={rowStyle}>{item.next_watering.toString()}</p>
         <p style={rowStyle}>{item.watering_frequency}</p>
         <div style={{ display: "flex", flexDirection: "row", justifyContent: "end", alignContent: "center", padding: "0.5rem", width: numTableCols }}>
           <Icon iconName="bi bi-pencil" />
