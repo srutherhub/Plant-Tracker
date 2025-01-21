@@ -7,7 +7,7 @@ export class Plant {
   next_watering: Date;
   location: string;
 
-  Constructor(
+  constructor(
     id: string,
     name: string,
     type: string,
