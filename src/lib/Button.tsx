@@ -1,10 +1,11 @@
 export function Button({ ...props }) {
 
-  return <div style={{ paddingBottom: "1rem" }}> <button onClick={props.onclick}
+  return <div> <button onClick={props.onclick}
     style={{
       border: "1px solid var(--border)",
-      width: "16.5rem",
-      height: "2.25rem",
+      width: "12rem",
+      height: "2rem",
+      borderRadius: "0.25rem"
     }}
   >{props.name}</button></div>
 }

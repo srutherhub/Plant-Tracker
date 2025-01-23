@@ -6,7 +6,7 @@ export function usePlants() {
   const endpoint = "db/getplants";
   const fetch_url = base_url + endpoint;
 
-  const [data, setData] = useState<null | Plant[]>(null);
+  const [data, setData] = useState<Plant[]>();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
