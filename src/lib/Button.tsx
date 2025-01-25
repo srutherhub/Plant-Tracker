@@ -5,7 +5,7 @@ export function Button({ ...props }) {
       border: "1px solid var(--border)",
       width: "12rem",
       height: "2rem",
-      borderRadius: "0.25rem"
+      borderRadius: "0.5rem"
     }}
   >{props.name}</button></div>
 }

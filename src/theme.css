@@ -1,11 +1,13 @@
 :root {
   /*Colors*/
-  --base-bg: rgb(216, 210, 210);
-  --primary-bg: rgb(233, 233, 237);
+  --base-bg: #F2F2F2;
+  --primary-bg: #8C8C8C;
   --secondary-bg: #d0d0d7;
-  --primary: green;
-  --primary-lt: rgb(175, 202, 175);
-  --border: gray;
+  --primary: #8C8C8C;
+  --primary-lt: #404040;
+  --border: #BFBFBF;
+  --primary-font:#0D0D0D;
+  --secondary-font:#404040;
 
   /*UI Elements*/
   --primary-border-rad: 1rem;

@@ -4,6 +4,7 @@
 html {
   background-color: var(--base-bg);
   font-family: "Inter", serif;
+  color: var(--primary-font)
 }
 
 h3 {
@@ -14,6 +15,10 @@ h3 {
 h4 {
   padding: 0;
   margin: 0;
+}
+
+button {
+  background-color: var(--base-bg);
 }
 
 button:hover {
