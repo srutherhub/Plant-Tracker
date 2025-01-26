@@ -3,8 +3,8 @@ export class Plant {
   name: string;
   type: EPlantType;
   species: string;
-  last_watered: Date;
-  next_watering: Date;
+  last_watered: string;
+  next_watering: string;
   location: string;
   watering_frequency: number;
 
@@ -13,8 +13,8 @@ export class Plant {
     name: string,
     type: EPlantType,
     species: string,
-    last_watered: Date,
-    next_watering: Date,
+    last_watered: string,
+    next_watering: string,
     location: string,
     watering_frequency: number
   ) {
@@ -28,10 +28,20 @@ export class Plant {
     this.watering_frequency = watering_frequency;
   }
 
-  calcNextWateringDate(): void {
-    const newDate = new Date();
-    newDate.setDate(this.last_watered.getDate() + this.watering_frequency);
-    this.next_watering = newDate;
+  getLastWateredDate(): string {
+    if (this.last_watered) {
+      return new Date(this.last_watered + "T00:00:00").toLocaleDateString(
+        "en-us"
+      );
+    } else return "";
+  }
+
+  getNextWateringDate(): string {
+    if (this.next_watering) {
+      return new Date(this.next_watering + "T00:00:00").toLocaleDateString(
+        "en-us"
+      );
+    } else return "";
   }
 }
 

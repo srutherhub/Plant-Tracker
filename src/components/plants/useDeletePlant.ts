@@ -8,14 +8,18 @@ export function useDeletePlant() {
   const [data, setData] = useState<null | string>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const userId = sessionStorage.getItem("userId");
 
   const deleteplant = useCallback(
     async (id: string) => {
       setLoading(true);
       try {
-        const response = await fetch(fetch_url, {
+        const response = await fetch(fetch_url + `?id=${userId}`, {
           method: "DELETE",
-          headers: { "Content-Type": "application/json" },
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer: ${sessionStorage.getItem("accessToken")}`,
+          },
           body: JSON.stringify({ id: id }),
         });
         if (!response.ok) {

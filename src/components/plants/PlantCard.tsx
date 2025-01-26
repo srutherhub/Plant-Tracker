@@ -15,7 +15,7 @@ interface IPlantCardProps {
 
 export function PlantCard(props: IPlantCardProps) {
   const { data, onDelete, onUpdate } = props;
-  const [plantData, setPlantData] = useState<Plant | null | undefined>();
+  const [plantData, setPlantData] = useState<Plant | null>();
   const [plantName, setPlantName] = useState<string | null>("");
   const [plantSpecies, setPlantSpecies] = useState<string | null>("");
   const [plantLocation, setPlantLocation] = useState<string | null>("");
@@ -31,7 +31,6 @@ export function PlantCard(props: IPlantCardProps) {
 
   useEffect(() => {
     setPlantData(data);
-    setPlantType(plantData?.type);
   }, [data]);
 
   const handleDelete = async (id: string) => {
@@ -49,19 +48,30 @@ export function PlantCard(props: IPlantCardProps) {
     id: string,
     input: Plant
   ) => {
-    const plantCopy: Plant = {
+    const plantCopy = {
       ...input,
       ...(plantName && { name: plantName }),
       ...(plantSpecies && { species: plantSpecies }),
       ...(plantLocation && { location: plantLocation }),
-      ...(plantFreq && { watering_frequency: plantFreq }),
+      ...(plantFreq && { watering_frequency: parseInt(plantFreq) }),
       ...(plantType && { type: plantType }),
     };
 
-    if (JSON.stringify(plantData) != JSON.stringify(plantCopy)) {
-      setPlantData(plantCopy);
+    const plantInstance = new Plant(
+      plantCopy.id,
+      plantCopy.name,
+      plantCopy.type,
+      plantCopy.species,
+      plantCopy.last_watered,
+      plantCopy.next_watering,
+      plantCopy.location,
+      plantCopy.watering_frequency
+    );
+
+    if (JSON.stringify(plantData) != JSON.stringify(plantInstance)) {
+      setPlantData(plantInstance);
       try {
-        await updateplant(id, plantCopy);
+        await updateplant(id, plantInstance);
         setIsEditable(!isEditable);
         onUpdate(id, input)
       } catch {
@@ -74,10 +84,10 @@ export function PlantCard(props: IPlantCardProps) {
 
   useEffect(() => {
     if (updateResponse) setPlantData(updateResponse)
-  }, [updateLoading]);
+  }, [updateLoading, updateResponse]);
 
-  const handleSelect = (e) => {
-    setPlantType(e.target.value);
+  const handleSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setPlantType(e.target.value as EPlantType);
   };
 
 
@@ -89,6 +99,8 @@ export function PlantCard(props: IPlantCardProps) {
     justifyContent: isEditable ? "" : "space-between",
     borderBottom: "1px solid var(--border)",
   };
+
+  if (!plantData) return <div></div>
 
   if (isEditable) {
     return (
@@ -108,13 +120,13 @@ export function PlantCard(props: IPlantCardProps) {
               loading={loading}
               loadingIconName="bi bi-hourglass"
               onclick={() => {
-                handleDelete(plantData?.id);
+                handleDelete(plantData.id);
               }}
             />
             <Icon
               iconName="bi bi-save"
               onclick={() => {
-                handleUpdate(plantData?.id, plantData);
+                handleUpdate(plantData.id, plantData);
               }}
             />
           </div>
@@ -130,14 +142,14 @@ export function PlantCard(props: IPlantCardProps) {
               <p>Name </p>
               <TextInput
                 setData={setPlantName}
-                placeholder={plantData?.name}
+                placeholder={plantData.name}
               />
             </div>
             <div>
               <p>Species </p>
               <TextInput
                 setData={setPlantSpecies}
-                placeholder={plantData?.species}
+                placeholder={plantData.species}
               />
             </div>
             <div style={itemStyle}>
@@ -151,7 +163,7 @@ export function PlantCard(props: IPlantCardProps) {
               <p>Location</p>{" "}
               <TextInput
                 setData={setPlantLocation}
-                placeholder={plantData?.location}
+                placeholder={plantData.location}
               />
             </div>
             <div style={itemStyle}>
@@ -159,7 +171,7 @@ export function PlantCard(props: IPlantCardProps) {
               <TextInput
                 type="number"
                 setData={setPlantFreq}
-                placeholder={plantData?.watering_frequency.toString()}
+                placeholder={plantData.watering_frequency.toString()}
               />
             </div>
           </div>
@@ -193,32 +205,32 @@ export function PlantCard(props: IPlantCardProps) {
             }}
           >
             <div style={{ paddingBottom: "1rem" }}>
-              <h3>{plantData?.name}</h3>
+              <h3>{plantData.name}</h3>
             </div>
             <div>
-              <p>Species: {plantData?.species}</p>
+              <p>Species: {plantData.species}</p>
             </div>
           </div>
         </div>
         <div style={itemStyle}>
           <p>Next Watering Date</p>
-          <p>{plantData?.next_watering.toString()}</p>
+          <p>{plantData.getNextWateringDate()}</p>
         </div>
         <div style={itemStyle}>
           <p>Last Watered Date</p>
-          <p>{plantData?.last_watered.toString()}</p>
+          <p>{plantData.getLastWateredDate()}</p>
         </div>
         <div>
           <div style={itemStyle}>
             <p>Type</p>
-            <p>{plantData?.type}</p>
+            <p>{plantData.type}</p>
           </div>
           <div style={itemStyle}>
-            <p>Location</p> <p>{plantData?.location}</p>
+            <p>Location</p> <p>{plantData.location}</p>
           </div>
           <div style={itemStyle}>
             <p>Watering Frequency (Days)</p>
-            <p>{plantData?.watering_frequency}</p>
+            <p>{plantData.watering_frequency}</p>
           </div>
         </div>
       </Box>

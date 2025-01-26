@@ -37,6 +37,7 @@ export function useAuth(props: IRequestOptions) {
           redirect("/auth");
         } else {
           sessionStorage.setItem("accessToken", result.session.access_token);
+          sessionStorage.setItem("userId", result.session.user.id);
           redirect("/app");
         }
         // eslint-disable-next-line @typescript-eslint/no-explicit-any

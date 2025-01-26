@@ -7,5 +7,5 @@ export function Button({ ...props }) {
       height: "2rem",
       borderRadius: "0.5rem"
     }}
-  >{props.name}</button></div>
+  >{props.icon}{` ${props.name}`}</button></div>
 }

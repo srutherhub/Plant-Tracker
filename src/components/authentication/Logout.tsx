@@ -1,4 +1,4 @@
-import { Button } from "../lib/Button";
+import { Button } from "../../lib/Button";
 import { useAuth } from "./useAuth";
 
 export function Logout() {

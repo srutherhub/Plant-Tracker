@@ -5,6 +5,8 @@ import { PlantCard } from "./PlantCard";
 
 export function PlantsCardGrid() {
   const context = useContext(AppDataContext);
+
+  if (!context) return <div></div>
   const { plantsData, setPlantsData } = context;
 
   const onDelete = (id: string) => {
@@ -20,8 +22,7 @@ export function PlantsCardGrid() {
         return plant;
       }
     });
-    console.log(plantsDataCopy);
-    setPlantsData(plantsDataCopy);
+    setPlantsData(plantsDataCopy as Plant[]);
   };
 
   const plantsMap = plantsData?.map((item, index) => {
@@ -36,14 +37,14 @@ export function PlantsCardGrid() {
   });
 
   return (
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fill, minmax(20rem, 1fr))",
-          gap: "1rem",
-        }}
-      >
-        {plantsMap}
-      </div>
+    <div
+      style={{
+        display: "grid",
+        gridTemplateColumns: "repeat(auto-fill, minmax(20rem, 1fr))",
+        gap: "1rem",
+      }}
+    >
+      {plantsMap}
+    </div>
   );
 }

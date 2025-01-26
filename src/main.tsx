@@ -2,7 +2,7 @@ import ReactDOM from 'react-dom/client'
 import { BrowserRouter, Routes, Route } from 'react-router'
 import './index.css'
 import App from './App.tsx'
-import { Login } from './authentication/Login.tsx';
+import { Login } from './components/authentication/Login.tsx'
 
 const root = document.getElementById("root") as HTMLElement;
 

@@ -1,8 +1,9 @@
 import "./App.css";
 import { useState, useEffect, createContext } from "react";
-import { Logout } from "./authentication/Logout";
-import { usePlants } from "./db/plants/usePlants";
-import { PlantsCardGrid } from "./db/plants/PlantsCardGrid";
+import { Logout } from "./components/authentication/Logout";
+import { usePlants } from "./components/plants/usePlants";
+import { Toolbar } from "./components/plants/Toolbar";
+import { PlantsCardGrid } from "./components/plants/PlantsCardGrid";
 import { useNavigate } from "react-router";
 import { Plant } from "./models/plant";
 
@@ -12,13 +13,13 @@ interface IAppData {
 }
 export const AppDataContext = createContext<IAppData | undefined>(undefined);
 
+
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [plantsData, setPlantsData] = useState<Plant[] | undefined>();
-
+  const [plantsData, setPlantsData] = useState<Plant[]>();
   const { data, plants } = usePlants();
   const redirect = useNavigate();
-
+  const userId = sessionStorage.getItem("userId")
   /*Redirect to login page if not logged in*/
   useEffect(() => {
     const token = sessionStorage.getItem("accessToken");
@@ -32,9 +33,9 @@ function App() {
   /*Load page data if logged in*/
   useEffect(() => {
     if (isLoggedIn) {
-      plants();
+      plants()
     }
-  }, [plants, isLoggedIn]);
+  }, [isLoggedIn, plants, userId]);
 
   /*Add loaded data to AppDataContext state variable*/
   useEffect(() => {
@@ -46,10 +47,11 @@ function App() {
       <AppDataContext.Provider value={{ plantsData, setPlantsData }}>
         <div
           style={{
-            padding: "0 clamp(0.5rem, 8%, 8rem)",
+            padding: "0 clamp(0.5rem, 8%, 16rem)",
           }}
         >
           <Logout />
+          <Toolbar></Toolbar>
           <PlantsCardGrid />
         </div>
       </AppDataContext.Provider>

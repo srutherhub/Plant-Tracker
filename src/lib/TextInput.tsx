@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 interface ITextInputProps {
   setData: React.Dispatch<React.SetStateAction<any>>;
-  placeholder?: string | null | undefined;
+  placeholder?: string
   type?: string;
   value?: string
 }

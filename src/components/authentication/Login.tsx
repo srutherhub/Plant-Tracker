@@ -1,7 +1,7 @@
 import { useState } from 'react'
-import { Box } from '../lib/Box'
-import { TextInput } from '../lib/TextInput'
-import { Button } from '../lib/Button'
+import { Box } from '../../lib/Box'
+import { TextInput } from '../../lib/TextInput'
+import { Button } from '../../lib/Button'
 import { useAuth } from './useAuth'
 
 export function Login() {

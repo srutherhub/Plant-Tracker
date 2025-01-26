@@ -1,5 +1,3 @@
-
-
 export function Box({ children, ...props }) {
   return (
     <div
@@ -14,6 +12,8 @@ export function Box({ children, ...props }) {
         width: props.width || "",
         height: props.height || "",
         backgroundColor: props.backgroundColor || "var(--base-bg)",
+        justifyContent: props.justifyContent || "",
+        alignContent: props.alignContent || "",
         borderRadius: "var(--primary-border-rad)"
       }}
     >

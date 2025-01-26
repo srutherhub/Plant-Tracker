@@ -1,29 +1,33 @@
 import { useCallback, useState } from "react";
 import { Plant } from "../../models/plant";
 
-export function useUpdatePlant() {
+export function useAddPlant() {
   const base_url = import.meta.env.VITE_SERVER_URL;
-  const endpoint = "db/updateplant";
+  const endpoint = "db/addplant";
   const fetch_url = base_url + endpoint;
 
   const [data, setData] = useState<null | Plant>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const userId = sessionStorage.getItem("userId");
 
-  const updateplant = useCallback(
-    async (id: string, input: Plant) => {
+  const addplant = useCallback(
+    async (input: Plant) => {
       setLoading(true);
       try {
-        const response = await fetch(fetch_url, {
-          method: "PATCH",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ id: id, input: input }),
+        const response = await fetch(fetch_url + `?id=${userId}`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer: ${sessionStorage.getItem("accessToken")}`,
+          },
+          body: JSON.stringify({ input: input }),
         });
         if (!response.ok) {
           throw new Error("Failed update plant data");
         }
         const result = await response.json();
-        setData(result[0]);
+        setData(result);
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } catch (err: any) {
         setError(err.message || "An error occured");
@@ -31,7 +35,8 @@ export function useUpdatePlant() {
         setLoading(false);
       }
     },
-    [fetch_url]
+    [fetch_url, userId]
   );
-  return { loading, error, data , updateplant };
+
+  return { loading, error, data, addplant };
 }
