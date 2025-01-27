@@ -6,6 +6,7 @@ export function Box({ children, ...props }) {
         display: props.display || "flex",
         alignItems: props.alignItems || "",
         flexDirection: props.flexDirection || "column",
+        flexWrap: props.flexWrap || "",
         border: props.border || "1px solid var(--border)",
         borderBottom: props.borderBottom || "4px solid var(--border)",
         padding: props.padding || "0.5rem",

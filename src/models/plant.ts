@@ -27,6 +27,18 @@ export class Plant {
     this.location = location;
     this.watering_frequency = watering_frequency;
   }
+  static getNewPlant(input: Plant): Plant {
+    return new Plant(
+      input.id,
+      input.name,
+      input.type,
+      input.species,
+      input.last_watered,
+      input.next_watering,
+      input.location,
+      input.watering_frequency
+    );
+  }
 
   getLastWateredDate(): string {
     if (this.last_watered) {

@@ -48,13 +48,14 @@ export function usePlants() {
           )
       );
       setData(plantInstances);
+
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
       setError(err.message || "An error occured");
     } finally {
       setLoading(false);
     }
-  }, [fetch_url, userId, data]);
+  }, []);
 
   return { loading, error, data, plants };
 }

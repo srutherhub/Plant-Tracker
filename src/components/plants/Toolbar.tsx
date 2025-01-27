@@ -19,9 +19,9 @@ export function Toolbar() {
   };
 
   return (
-    <Box flexDirection="row" padding="1rem" justifyContent="space-between">
+    <Box className="toolbar" flexDirection="row" padding="1rem" justifyContent="space-between" flexWrap="wrap">
       <h1>My plants</h1>
-      <div style={{ display: "flex", alignItems: "center" }}>
+      <div style={{ display: "flex", alignItems: "center", flexWrap: "wrap" }}>
         <div style={{ paddingRight: "0.5rem" }}>
           <select>
             <option value={ESortBy.default}>{ESortBy.default}</option>

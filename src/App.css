@@ -4,3 +4,20 @@
 #Icon:hover {
   cursor: pointer;
 }
+
+.app-container {
+  display: grid;
+  gap: 1rem;
+}
+
+@media (max-width: 480px) {
+  .app-container {
+    padding: 0 1rem;
+  }
+}
+
+@media (min-width: 480px) {
+  .app-container {
+    padding: 0 clamp(1rem, 16%, 32rem);
+  }
+}

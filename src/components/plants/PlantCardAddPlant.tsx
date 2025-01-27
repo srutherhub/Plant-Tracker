@@ -1,4 +1,5 @@
-import { useContext, useEffect, useState } from "react";
+import { useState, useEffect } from "react";
+import { AppDataContext } from "../../App";
 import { Box } from "../../lib/Box";
 import { Icon } from "../../lib/Icon";
 import { TextInput } from "../../lib/TextInput";
@@ -6,9 +7,12 @@ import { Plant } from "../../models/plant";
 import { EPlantType } from "../../models/plant";
 import { useAddPlant } from "./useAddPlant";
 import { usePlants } from "./usePlants";
-import { AppDataContext } from "../../App";
 
-export function PlantCardAddPlant(props) {
+interface IPlantCardAddPlantProps {
+  onClose: () => void
+}
+
+export function PlantCardAddPlant(props: IPlantCardAddPlantProps) {
   const { onClose } = props;
   const [plantName, setPlantName] = useState<string>("");
   const [plantSpecies, setPlantSpecies] = useState<string>("");
@@ -18,10 +22,7 @@ export function PlantCardAddPlant(props) {
   const [plantType, setPlantType] = useState<EPlantType>(EPlantType.indoor);
   const isEditable = true;
   const { error, addplant } = useAddPlant();
-  const { plants } = usePlants();
-
-  const context = useContext(AppDataContext);
-  const { setPlantsData } = context;
+  const { data, plants } = usePlants();
 
   const handleSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setPlantType(e.target.value as EPlantType);
@@ -38,15 +39,16 @@ export function PlantCardAddPlant(props) {
     };
     try {
       await addplant(input);
-      const updateddata = await plants();
-
-      console.log(updateddata)
-
+      await plants();
       onClose();
     } catch {
       console.log(error);
     }
   };
+
+  useEffect(() => {
+    console.log(data)
+  }, [data])
 
   const itemStyle = {
     padding: "0.5rem",

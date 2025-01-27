@@ -46,12 +46,10 @@ function App() {
     <div>
       <AppDataContext.Provider value={{ plantsData, setPlantsData }}>
         <div
-          style={{
-            padding: "0 clamp(0.5rem, 8%, 16rem)",
-          }}
+          className="app-container"
         >
           <Logout />
-          <Toolbar></Toolbar>
+          <Toolbar />
           <PlantsCardGrid />
         </div>
       </AppDataContext.Provider>
