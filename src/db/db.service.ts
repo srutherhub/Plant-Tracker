@@ -24,6 +24,10 @@ export class DbService {
   async addPlant(input: Plant, userId: string) {
     if (!userId) throw new Error("No ID provided");
     const supabase = await this.authenticationService.dbConnection();
+
+    input = Plant.getNewPlant(input);
+    input.calcNextWateringDate();
+
     const { data, error } = await supabase
       .from("plants")
       .insert(input)
@@ -61,6 +65,8 @@ export class DbService {
     };
 
     input = removeEmptyProps(input);
+    input = Plant.getNewPlant(input);
+    input.calcNextWateringDate();
 
     const { data, error } = await supabase
       .from("plants")
