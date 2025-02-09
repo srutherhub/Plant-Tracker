@@ -7,14 +7,13 @@ interface IIcon {
 }
 
 export function Icon(props: IIcon) {
-  const { iconName, loading, loadingIconName, iconColor, onclick } = props;
+  const { iconName, loading, loadingIconName, onclick } = props;
   if (loading === true) {
     return (
       <i
         id="Icon"
         className={loadingIconName || iconName}
         onClick={onclick}
-        style={{ color: iconColor || "var(--border)", cursor: "pointer" }}
       ></i>
     );
   } else {
@@ -23,7 +22,6 @@ export function Icon(props: IIcon) {
         id="Icon"
         className={iconName}
         onClick={onclick}
-        style={{ color: iconColor || "var(--border)" }}
       ></i>
     );
   }

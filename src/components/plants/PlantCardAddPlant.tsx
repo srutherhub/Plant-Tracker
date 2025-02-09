@@ -55,7 +55,6 @@ export function PlantCardAddPlant(props: IPlantCardAddPlantProps) {
     paddingBottom: "0.5rem",
     display: isEditable ? "" : "flex",
     justifyContent: isEditable ? "" : "space-between",
-    borderBottom: "1px solid var(--border)",
   };
 
   return (

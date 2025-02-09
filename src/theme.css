@@ -1,13 +1,16 @@
 :root {
   /*Colors*/
-  --base-bg: #f2f2f2;
+  --base-bg: #fffff0;
   --primary-bg: #8c8c8c;
   --secondary-bg: #d0d0d7;
   --primary: #8c8c8c;
   --primary-lt: #404040;
-  --border: #bfbfbf;
+  --border: #c5c4b6;
   --primary-font: #0d0d0d;
   --secondary-font: #404040;
+  --primary-accent: #98fb98;
+  --secondary-accent: #ff7f50;
+  --tertiary-accent: hsla(16, 100%, 66%, 0.5);
 
   /*UI Elements*/
   --primary-border-rad: 1rem;
@@ -25,6 +28,11 @@ html {
   background-color: var(--base-bg);
   font-family: "Inter", serif;
   color: var(--primary-font);
+}
+
+body {
+  padding: 0;
+  margin: 0;
 }
 
 h1 {
@@ -47,11 +55,13 @@ h4 {
 }
 
 button {
-  background-color: var(--base-bg);
+  background-color: transparent;
+  cursor: pointer;
 }
 
 button:hover {
-  background-color: var(--secondary-bg);
+  background-color: var(--tertiary-accent);
+  cursor: pointer;
 }
 
 p {

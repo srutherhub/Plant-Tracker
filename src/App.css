@@ -1,8 +1,13 @@
 @import "./theme.css";
 @import "bootstrap-icons/font/bootstrap-icons.css";
 
+#Icon {
+  color: var(--primary-font);
+}
+
 #Icon:hover {
   cursor: pointer;
+  color: var(--secondary-accent);
 }
 
 .app-container {

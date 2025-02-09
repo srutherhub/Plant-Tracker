@@ -2,11 +2,11 @@ import { Button } from "../../lib/Button";
 import { useAuth } from "./useAuth";
 
 export function Logout() {
-  const { auth } = useAuth({ endpoint: "authentication/signout" })
+  const { auth } = useAuth({ endpoint: "authentication/signout" });
 
   const handleOnClick = () => {
-    auth()
-  }
+    auth();
+  };
 
-  return <Button name={"Sign out"} onclick={handleOnClick} />
+  return <Button name={"Log out"} onclick={handleOnClick} />;
 }

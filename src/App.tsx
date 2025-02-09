@@ -1,11 +1,12 @@
 import "./App.css";
 import { useState, useEffect, createContext } from "react";
-import { Logout } from "./components/authentication/Logout";
 import { usePlants } from "./components/plants/usePlants";
-import { Toolbar } from "./components/plants/Toolbar";
-import { PlantsCardGrid } from "./components/plants/PlantsCardGrid";
+import { Navbar } from "./components/navbar/Navbar";
 import { useNavigate } from "react-router";
 import { Plant } from "./models/plant";
+import { ManagePlants } from "./pages/ManagePlants";
+import { ENavOptions } from "./components/navbar/Navbar";
+import { Dashboard } from "./pages/Dashboard";
 
 interface IAppData {
   plantsData: Plant[] | undefined;
@@ -13,13 +14,13 @@ interface IAppData {
 }
 export const AppDataContext = createContext<IAppData | undefined>(undefined);
 
-
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [plantsData, setPlantsData] = useState<Plant[]>();
+  const [navSelect, setNavSelect] = useState<string>("Dashboard");
   const { data, plants } = usePlants();
   const redirect = useNavigate();
-  const userId = sessionStorage.getItem("userId")
+  const userId = sessionStorage.getItem("userId");
   /*Redirect to login page if not logged in*/
   useEffect(() => {
     const token = sessionStorage.getItem("accessToken");
@@ -33,7 +34,7 @@ function App() {
   /*Load page data if logged in*/
   useEffect(() => {
     if (isLoggedIn) {
-      plants()
+      plants();
     }
   }, [isLoggedIn, plants, userId]);
 
@@ -44,13 +45,11 @@ function App() {
 
   return (
     <div>
+      <Navbar navSelect={navSelect} setNavSelect={setNavSelect} />
       <AppDataContext.Provider value={{ plantsData, setPlantsData }}>
-        <div
-          className="app-container"
-        >
-          <Logout />
-          <Toolbar />
-          <PlantsCardGrid />
+        <div className="app-container">
+          {navSelect === ENavOptions.dashboard ? <Dashboard /> : ""}
+          {navSelect === ENavOptions.manage ? <ManagePlants /> : ""}
         </div>
       </AppDataContext.Provider>
     </div>
