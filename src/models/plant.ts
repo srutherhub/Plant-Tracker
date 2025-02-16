@@ -41,6 +41,12 @@ export class Plant {
     );
   }
 
+  static getPlantColfromNum(num): string {
+    const columns = { 0: "name", 1: "next_watering", 2: "last_watered" };
+    if (!num) return "name";
+    return columns[num];
+  }
+
   calcNextWateringDate(): void {
     if (!this.last_watered) return null;
     const lastWateredCopy = new Date(this.last_watered + "T00:00:00");

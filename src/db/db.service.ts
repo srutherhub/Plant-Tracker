@@ -6,13 +6,14 @@ import { Plant } from "src/models/plant";
 export class DbService {
   constructor(private readonly authenticationService: AuthenticationService) {}
 
-  async getPlants(userId: string) {
+  async getPlants(userId: string, sort: number) {
     if (!userId) throw new Error("No ID provided");
     const supabase = await this.authenticationService.dbConnection();
     const { data, error } = await supabase
       .from("plants")
       .select("*")
-      .eq("user_id", userId);
+      .eq("user_id", userId)
+      .order(Plant.getPlantColfromNum(sort), { ascending: true });
     if (error) {
       throw new Error(error.message);
     }

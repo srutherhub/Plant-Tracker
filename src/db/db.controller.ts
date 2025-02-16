@@ -18,8 +18,8 @@ export class DbController {
 
   @Get("getplants")
   @UseGuards(AuthGuard)
-  async getPlants(@Query("id") id: string) {
-    return this.dbService.getPlants(id);
+  async getPlants(@Query("id") id: string, @Query("sort") sort: number) {
+    return this.dbService.getPlants(id, sort);
   }
 
   @Post("addplant")

@@ -12,12 +12,6 @@ A webapp to track when to water your house plants and other things related to pl
 2. Front end will be plain react
 3. DB will be Supabase
 
-# Plan of Action
-
-1. Set up the Node JS server and handle basic authentication with Supabase.
-2. Set up the data model for the web app and DB tables
-3. Set up the front end
-
 # APIs
 
 ## Authentication
