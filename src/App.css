@@ -10,6 +10,8 @@
   color: var(--secondary-accent);
 }
 
+/*App component*/
+
 .app-container {
   display: grid;
   gap: 1rem;
@@ -25,4 +27,9 @@
   .app-container {
     padding: 0 clamp(1rem, 16%, 32rem);
   }
+}
+
+/*Navbar*/
+.nav-option:hover {
+  cursor: pointer;
 }

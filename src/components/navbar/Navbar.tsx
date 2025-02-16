@@ -5,7 +5,12 @@ export enum ENavOptions {
   manage = "Manage",
 }
 
-export function Navbar(props) {
+interface INavbarProps {
+  navSelect?: string;
+  setNavSelect?: React.Dispatch<React.SetStateAction<string>>;
+}
+
+export function Navbar(props: INavbarProps) {
   const { navSelect, setNavSelect } = props;
 
   const navStyle = {
@@ -24,6 +29,7 @@ export function Navbar(props) {
   const navMap = navOptions.map((option, key) => {
     return (
       <p
+        className="nav-option"
         key={key}
         style={{
           padding: "0.5rem",
@@ -32,7 +38,9 @@ export function Navbar(props) {
           backgroundColor:
             navSelect == option.label ? "var(--secondary-accent)" : "",
         }}
-        onClick={() => setNavSelect(option.label)}
+        onClick={() => {
+          if (setNavSelect) setNavSelect(option.label);
+        }}
       >
         {option.label}
       </p>
@@ -40,6 +48,22 @@ export function Navbar(props) {
   });
 
   const isLoggedIn = sessionStorage.getItem("accessToken") ? true : false;
+
+  if (isLoggedIn) {
+    return (
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "4rem auto 4rem",
+          backgroundColor: "var(--primary-accent)",
+        }}
+      >
+        <div></div>
+        <div style={navStyle}>{navMap}</div>
+        <div>{isLoggedIn ? <Logout /> : "Login"}</div>
+      </div>
+    );
+  }
 
   return (
     <div
@@ -49,9 +73,7 @@ export function Navbar(props) {
         backgroundColor: "var(--primary-accent)",
       }}
     >
-      <div></div>
-      <div style={navStyle}>{navMap}</div>
-      <div>{isLoggedIn ? <Logout /> : "Login"}</div>
+      <div style={navStyle}></div>
     </div>
   );
 }

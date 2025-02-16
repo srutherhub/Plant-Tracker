@@ -1,4 +1,5 @@
 import { useCallback, useState } from "react";
+import { useSearchParams } from "react-router";
 import { Plant } from "../../models/plant";
 
 export function usePlants() {
@@ -9,18 +10,24 @@ export function usePlants() {
   const [data, setData] = useState<Plant[]>();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [searchParams] = useSearchParams();
   const userId = sessionStorage.getItem("userId");
+
+  const sortParam = searchParams.get("sort") || 0;
 
   const plants = useCallback(async () => {
     setLoading(true);
     try {
-      const response = await fetch(fetch_url + `?id=${userId}`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer: ${sessionStorage.getItem("accessToken")}`,
-        },
-      });
+      const response = await fetch(
+        fetch_url + `?id=${userId}&sort=${sortParam}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer: ${sessionStorage.getItem("accessToken")}`,
+          },
+        }
+      );
       if (!response.ok) {
         throw new Error("Failed load plant data");
       }
@@ -48,14 +55,13 @@ export function usePlants() {
           )
       );
       setData(plantInstances);
-
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
       setError(err.message || "An error occured");
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [fetch_url, sortParam, userId]);
 
   return { loading, error, data, plants };
 }
