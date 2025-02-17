@@ -33,10 +33,10 @@ function App() {
 
   /*Load page data if logged in*/
   useEffect(() => {
-    if (isLoggedIn) {
+    if (isLoggedIn && !plantsData) {
       plants();
     }
-  }, [isLoggedIn, plants, userId]);
+  }, [isLoggedIn, plants, plantsData, userId]);
 
   /*Add loaded data to AppDataContext state variable*/
   useEffect(() => {

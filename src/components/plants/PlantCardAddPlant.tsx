@@ -7,7 +7,7 @@ import { EPlantType } from "../../models/plant";
 import { useAddPlant } from "./useAddPlant";
 
 interface IPlantCardAddPlantProps {
-  onClose: (updateState: boolean) => void;
+  onClose: (updateState?: boolean) => void;
 }
 
 export function PlantCardAddPlant(props: IPlantCardAddPlantProps) {

@@ -1,17 +1,16 @@
-import { useContext } from "react";
-import { AppDataContext } from "../../App";
+import { useAppContext } from "../../useAppContext";
 import { Plant } from "../../models/plant";
 import { PlantCard } from "./PlantCard";
 
 export function PlantsCardGrid() {
-  const context = useContext(AppDataContext);
-
-  if (!context) return <div></div>;
-  const { plantsData, setPlantsData } = context;
+  const context = useAppContext();
+  const { plantsData, setPlantsData } = context || {};
 
   const onDelete = (id: string) => {
     const updatedPlants = plantsData?.filter((prev) => prev.id !== id);
-    setPlantsData(updatedPlants);
+    if (setPlantsData) {
+      setPlantsData(updatedPlants);
+    }
   };
 
   const onUpdate = (id: string, input: Plant) => {
@@ -22,7 +21,9 @@ export function PlantsCardGrid() {
         return plant;
       }
     });
-    setPlantsData(plantsDataCopy as Plant[]);
+    if (setPlantsData) {
+      setPlantsData(plantsDataCopy as Plant[]);
+    }
   };
 
   const plantsMap = plantsData?.map((item, index) => {

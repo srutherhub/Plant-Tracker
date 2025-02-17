@@ -1,4 +1,5 @@
 import { Logout } from "../authentication/Logout";
+import { LoginSignupButton } from "../authentication/LoginSignupButton";
 
 export enum ENavOptions {
   dashboard = "Dashboard",
@@ -54,13 +55,15 @@ export function Navbar(props: INavbarProps) {
       <div
         style={{
           display: "grid",
-          gridTemplateColumns: "4rem auto 4rem",
+          gridTemplateColumns: "5rem auto 5rem",
           backgroundColor: "var(--primary-accent)",
         }}
       >
         <div></div>
         <div style={navStyle}>{navMap}</div>
-        <div>{isLoggedIn ? <Logout /> : "Login"}</div>
+        <div style={{ alignContent: "center", width: "4rem" }}>
+          <Logout />
+        </div>
       </div>
     );
   }
@@ -69,11 +72,15 @@ export function Navbar(props: INavbarProps) {
     <div
       style={{
         display: "grid",
-        gridTemplateColumns: "4rem auto 4rem",
+        gridTemplateColumns: "4rem auto 9rem",
         backgroundColor: "var(--primary-accent)",
       }}
     >
+      <div></div>
       <div style={navStyle}></div>
+      <div style={{ alignContent: "center", width: "8rem" }}>
+        <LoginSignupButton />
+      </div>
     </div>
   );
 }

@@ -1,4 +1,4 @@
-import { Button } from "../../lib/Button";
+import { Button, EButtonTypes } from "../../lib/Button";
 import { useAuth } from "./useAuth";
 
 export function Logout() {
@@ -8,5 +8,11 @@ export function Logout() {
     auth();
   };
 
-  return <Button name={"Log out"} onclick={handleOnClick} />;
+  return (
+    <Button
+      type={EButtonTypes.secondary}
+      name={"Log out"}
+      onclick={handleOnClick}
+    />
+  );
 }

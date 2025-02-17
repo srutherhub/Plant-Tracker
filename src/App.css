@@ -33,3 +33,22 @@
 .nav-option:hover {
   cursor: pointer;
 }
+
+/*Library*/
+.lib-button-primary {
+  background-color: var(--secondary-accent);
+  transition: filter 0.1s ease;
+  cursor: pointer;
+}
+.lib-button-primary:hover {
+  filter: brightness(0.9);
+}
+
+.lib-button-secondary {
+  background-color: var(--base-bg);
+  transition: filter 0.1s ease;
+  cursor: pointer;
+}
+.lib-button-secondary:hover {
+  filter: brightness(0.9);
+}

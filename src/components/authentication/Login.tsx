@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Box } from "../../lib/Box";
 import { TextInput } from "../../lib/TextInput";
-import { Button } from "../../lib/Button";
+import { Button, EButtonTypes } from "../../lib/Button";
 import { Navbar } from "../navbar/Navbar";
 import { useAuth } from "./useAuth";
 
@@ -26,7 +26,11 @@ export function Login() {
             type="password"
             setData={setPassword}
           />
-          <Button name="Sign in" onclick={handleOnClick} />
+          <Button
+            type={EButtonTypes.secondary}
+            name="Sign in"
+            onclick={handleOnClick}
+          />
           <>{error}</>
         </Box>
       </div>

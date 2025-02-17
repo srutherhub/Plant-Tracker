@@ -1,7 +1,7 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
 import { useSearchParams } from "react-router";
-import { AppDataContext } from "../../App";
-import { Button } from "../../lib/Button";
+import { useAppContext } from "../../useAppContext";
+import { Button, EButtonTypes } from "../../lib/Button";
 import { Modal } from "../../lib/Modal";
 import { PlantCardAddPlant } from "./PlantCardAddPlant";
 import { usePlants } from "./usePlants";
@@ -13,14 +13,16 @@ enum ESortBy {
 }
 
 export function Toolbar() {
-  const context = useContext(AppDataContext);
-  const { setPlantsData } = context;
+  const context = useAppContext();
+  const setPlantsData = context?.setPlantsData;
   const [searchParams, setSearchParams] = useSearchParams();
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const { data, plants } = usePlants();
 
+  const toggleModal = () => setIsModalOpen(!isModalOpen);
+
   const handleModal = (updateState?: boolean) => {
-    setIsModalOpen(!isModalOpen);
+    toggleModal();
     if (updateState) {
       plants();
     }
@@ -39,7 +41,7 @@ export function Toolbar() {
   }, [plants, searchParams]);
 
   useEffect(() => {
-    if (data) setPlantsData(data);
+    if (data && setPlantsData) setPlantsData(data);
   }, [data, setPlantsData]);
 
   return (
@@ -56,7 +58,7 @@ export function Toolbar() {
       <h1>Manage plants</h1>
       <div style={{ display: "flex", alignItems: "center", flexWrap: "wrap" }}>
         <div style={{ paddingRight: "0.5rem" }}>
-          <select onChange={handleSelect} value={searchParams.get("sort")}>
+          <select onChange={handleSelect} value={searchParams.get("sort") || 0}>
             <option value={ESortBy.default}>{"Sort"}</option>
             <option value={ESortBy.nextWatering}>{"Next watering date"}</option>
             <option value={ESortBy.lastWatered}>{"Last watered"}</option>
@@ -64,9 +66,10 @@ export function Toolbar() {
         </div>
         <div style={{ width: "8rem" }}>
           <Button
+            type={EButtonTypes.secondary}
             iconName="bi bi-plus-lg"
             name="Add plant"
-            onclick={handleModal}
+            onclick={toggleModal}
           />
         </div>
         {isModalOpen && (
