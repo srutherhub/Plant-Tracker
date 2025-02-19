@@ -55,6 +55,14 @@ export class Plant {
       );
     } else return "";
   }
+
+  isWateringReqToday(): boolean {
+    const nextWateringrDate = new Date(this.getNextWateringDate());
+    const todayDate = new Date();
+    todayDate.setHours(0, 0, 0, 0);
+    if (nextWateringrDate <= todayDate) return true;
+    else return false;
+  }
 }
 
 export enum EPlantType {

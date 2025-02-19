@@ -6,6 +6,7 @@ import { Plant } from "../../models/plant";
 import { EPlantType } from "../../models/plant";
 import { useDeletePlant } from "./useDeletePlant";
 import { useUpdatePlant } from "./useUpdatePlant";
+import Droplet from "./Droplet";
 
 interface IPlantCardProps {
   data: Plant | null | undefined;
@@ -182,11 +183,12 @@ export function PlantCard(props: IPlantCardProps) {
             style={{
               display: "flex",
               flexDirection: "row",
-              justifyContent: "end",
+              justifyContent: "space-between",
               alignContent: "center",
               padding: "0.5rem",
             }}
           >
+            <Droplet plant={plantCardData} />
             <Icon
               iconName="bi bi-pencil"
               onclick={() => setIsEditable(!isEditable)}
