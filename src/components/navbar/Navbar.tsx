@@ -55,13 +55,13 @@ export function Navbar(props: INavbarProps) {
       <div
         style={{
           display: "grid",
-          gridTemplateColumns: "5rem auto 5rem",
+          gridTemplateColumns: "6rem auto 6rem",
           backgroundColor: "var(--primary-accent)",
         }}
       >
         <div></div>
         <div style={navStyle}>{navMap}</div>
-        <div style={{ alignContent: "center", width: "4rem" }}>
+        <div style={{ alignContent: "center", width: "5rem" }}>
           <Logout />
         </div>
       </div>
@@ -72,7 +72,7 @@ export function Navbar(props: INavbarProps) {
     <div
       style={{
         display: "grid",
-        gridTemplateColumns: "4rem auto 9rem",
+        gridTemplateColumns: "6rem auto 9rem",
         backgroundColor: "var(--primary-accent)",
       }}
     >

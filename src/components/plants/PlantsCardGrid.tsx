@@ -41,7 +41,7 @@ export function PlantsCardGrid() {
     <div
       style={{
         display: "grid",
-        gridTemplateColumns: "repeat(auto-fill, minmax(20rem, 1fr))",
+        gridTemplateColumns: "repeat(auto-fill, minmax(16rem, 1fr))",
         gap: "1rem",
       }}
     >
