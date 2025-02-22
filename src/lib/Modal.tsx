@@ -1,4 +1,6 @@
-export function Modal({ children }) {
+import { ReactNode } from "react";
+
+export function Modal({ children }:{children:ReactNode}) {
   return (
     <div style={{
       position: "fixed",
