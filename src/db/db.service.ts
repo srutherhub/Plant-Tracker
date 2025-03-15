@@ -50,6 +50,11 @@ export class DbService {
     if (error) {
       throw new Error(error.message);
     }
+
+    const { error: audit_error } = await supabase
+      .from("plants_audit")
+      .delete()
+      .eq("id", id);
     return true;
   }
 
@@ -79,5 +84,30 @@ export class DbService {
       throw new Error(error.message);
     }
     return data;
+  }
+
+  async waterPlant(plant: Plant, userId: string) {
+    if (!userId) throw new Error("No ID provided");
+    const supabase = await this.authenticationService.dbConnection();
+    plant = Plant.getNewPlant(plant);
+    plant.last_watered = Plant.getTodaysDate();
+    plant.calcNextWateringDate();
+    const { data, error } = await supabase
+      .from("plants")
+      .update({ last_watered: new Date(), next_watering: plant.next_watering })
+      .eq("id", plant.id)
+      .eq("user_id", userId)
+      .select();
+    if (error) {
+      throw new Error(error.message);
+    }
+    const { data: audit_data, error: audit_error } = await supabase
+      .from("plants_audit")
+      .insert({ id: plant.id })
+      .select();
+    if (audit_error) {
+      throw new Error(audit_error.message);
+    }
+    return { data, audit_data };
   }
 }

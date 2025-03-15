@@ -47,6 +47,11 @@ export class Plant {
     return columns[num];
   }
 
+  static getTodaysDate(): string {
+    const date = new Date();
+    return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;
+  }
+
   calcNextWateringDate(): void {
     if (!this.last_watered) return null;
     const lastWateredCopy = new Date(this.last_watered + "T00:00:00");

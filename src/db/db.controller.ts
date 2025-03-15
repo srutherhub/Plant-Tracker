@@ -42,4 +42,10 @@ export class DbController {
   ) {
     return this.dbService.updatePlant(body.id, body.input, id);
   }
+
+  @Post("waterplant")
+  @UseGuards(AuthGuard)
+  async waterplant(@Body() body: { plant: Plant }, @Query("id") id: string) {
+    return this.dbService.waterPlant(body.plant, id);
+  }
 }
