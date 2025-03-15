@@ -8,6 +8,7 @@ interface IButtonProps {
 export enum EButtonTypes {
   primary = "lib-button-primary",
   secondary = "lib-button-secondary",
+  tertiary = "lib-button-tertiary",
 }
 
 export function Button(props: IButtonProps) {
@@ -17,10 +18,11 @@ export function Button(props: IButtonProps) {
         className={props.type}
         onClick={props.onclick}
         style={{
-          border: "1px solid var(--border)",
+          border: "0px solid var(--border)",
           width: "100%",
           padding: "0.5rem",
           borderRadius: "0.5rem",
+          boxShadow: "var(--primary-shadow)",
         }}
       >
         <i className={props.iconName || ""}></i>

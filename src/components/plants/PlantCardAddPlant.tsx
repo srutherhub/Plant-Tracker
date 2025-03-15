@@ -5,7 +5,7 @@ import { TextInput } from "../../lib/TextInput";
 import { Plant } from "../../models/plant";
 import { EPlantType } from "../../models/plant";
 import { useAddPlant } from "./useAddPlant";
-
+import useToast from "../../lib/useToast";
 interface IPlantCardAddPlantProps {
   onClose: (updateState?: boolean) => void;
 }
@@ -20,7 +20,7 @@ export function PlantCardAddPlant(props: IPlantCardAddPlantProps) {
   const [plantType, setPlantType] = useState<EPlantType>(EPlantType.indoor);
   const isEditable = true;
   const { error, addplant } = useAddPlant();
-
+  const pushToast = useToast();
   const handleSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setPlantType(e.target.value as EPlantType);
   };
@@ -30,11 +30,12 @@ export function PlantCardAddPlant(props: IPlantCardAddPlantProps) {
       name: plantName,
       species: plantSpecies,
       location: plantLocation,
-      watering_frequency: plantFreq,
+      watering_frequency: plantFreq as number,
       last_watered: plantWaterDate,
       type: plantType,
     };
     try {
+      pushToast({ message: "Adding plant" });
       await addplant(input);
       onClose(true);
     } catch {
@@ -48,7 +49,6 @@ export function PlantCardAddPlant(props: IPlantCardAddPlantProps) {
     display: isEditable ? "" : "flex",
     justifyContent: isEditable ? "" : "space-between",
   };
-
   return (
     <Box height="28rem">
       <div>

@@ -6,6 +6,7 @@ import { Plant } from "../../models/plant";
 import { EPlantType } from "../../models/plant";
 import { useDeletePlant } from "./useDeletePlant";
 import { useUpdatePlant } from "./useUpdatePlant";
+import { useSearchParams } from "react-router";
 import Droplet from "./Droplet";
 
 interface IPlantCardProps {
@@ -23,6 +24,8 @@ export function PlantCard(props: IPlantCardProps) {
   const [plantFreq, setPlantFreq] = useState<string | null>(null);
   const [plantType, setPlantType] = useState<EPlantType>(EPlantType.indoor);
   const [isEditable, setIsEditable] = useState<boolean>(false);
+  const [searchParams] = useSearchParams();
+  const sortParam = searchParams.get("sort") || 0;
   const { data: response, loading, error, deleteplant } = useDeletePlant();
   const {
     data: updateResponse,
@@ -81,7 +84,9 @@ export function PlantCard(props: IPlantCardProps) {
   };
 
   useEffect(() => {
-    if (updateResponse) setPlantCardData(updateResponse);
+    if (updateResponse) {
+      setPlantCardData(updateResponse);
+    }
   }, [updateLoading, updateResponse]);
 
   const handleSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -209,11 +214,15 @@ export function PlantCard(props: IPlantCardProps) {
             </div>
           </div>
         </div>
-        <div style={itemStyle}>
+        <div
+          style={{ ...itemStyle, fontWeight: sortParam == "1" ? "bold" : "" }}
+        >
           <p>Next Watering Date</p>
           <p>{plantCardData.getNextWateringDate()}</p>
         </div>
-        <div style={itemStyle}>
+        <div
+          style={{ ...itemStyle, fontWeight: sortParam == "2" ? "bold" : "" }}
+        >
           <p>Last Watered Date</p>
           <p>{plantCardData.getLastWateredDate()}</p>
         </div>

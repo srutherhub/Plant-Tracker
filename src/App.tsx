@@ -2,24 +2,27 @@ import "./App.css";
 import { useState, useEffect, createContext } from "react";
 import { usePlants } from "./components/plants/usePlants";
 import { Navbar } from "./components/navbar/Navbar";
-import { useNavigate } from "react-router";
+import { Outlet, useLocation, useNavigate } from "react-router";
 import { Plant } from "./models/plant";
-import { ManagePlants } from "./pages/ManagePlants";
-import { ENavOptions } from "./components/navbar/Navbar";
 import { Dashboard } from "./pages/Dashboard";
+import ToastContainer, { TToast } from "./lib/ToastContainer";
 
 interface IAppData {
   plantsData: Plant[] | undefined;
   setPlantsData: React.Dispatch<React.SetStateAction<Plant[] | undefined>>;
+  toast: TToast[];
+  setToast: React.Dispatch<React.SetStateAction<TToast[]>>;
 }
+
 export const AppDataContext = createContext<IAppData | undefined>(undefined);
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [plantsData, setPlantsData] = useState<Plant[]>();
-  const [navSelect, setNavSelect] = useState<string>("Dashboard");
   const { data, plants } = usePlants();
+  const [toast, setToast] = useState<TToast[]>([]);
   const redirect = useNavigate();
+  const location = useLocation();
   const userId = sessionStorage.getItem("userId");
   /*Redirect to login page if not logged in*/
   useEffect(() => {
@@ -45,12 +48,14 @@ function App() {
 
   return (
     <div>
-      <Navbar navSelect={navSelect} setNavSelect={setNavSelect} />
-      <AppDataContext.Provider value={{ plantsData, setPlantsData }}>
+      <Navbar />
+      <AppDataContext.Provider
+        value={{ plantsData, setPlantsData, toast: toast, setToast }}
+      >
         <div className="app-container">
-          {navSelect === ENavOptions.dashboard ? <Dashboard /> : ""}
-          {navSelect === ENavOptions.manage ? <ManagePlants /> : ""}
+          {location.pathname === "/app" ? <Dashboard /> : <Outlet />}
         </div>
+        <ToastContainer />
       </AppDataContext.Provider>
     </div>
   );

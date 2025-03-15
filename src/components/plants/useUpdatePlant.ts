@@ -59,6 +59,5 @@ export function useUpdatePlant() {
     },
     [fetch_url, userId]
   );
-
   return { loading, error, data, updateplant };
 }

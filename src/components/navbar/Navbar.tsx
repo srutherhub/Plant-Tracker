@@ -1,18 +1,15 @@
 import { Logout } from "../authentication/Logout";
 import { LoginSignupButton } from "../authentication/LoginSignupButton";
+import { useNavigate, useLocation } from "react-router";
 
 export enum ENavOptions {
   dashboard = "Dashboard",
   manage = "Manage",
 }
 
-interface INavbarProps {
-  navSelect?: string;
-  setNavSelect?: React.Dispatch<React.SetStateAction<string>>;
-}
-
-export function Navbar(props: INavbarProps) {
-  const { navSelect, setNavSelect } = props;
+export function Navbar() {
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const navStyle = {
     padding: "1rem",
@@ -24,7 +21,7 @@ export function Navbar(props: INavbarProps) {
 
   const navOptions = [
     { path: "/app", label: ENavOptions.dashboard },
-    { path: "/manage", label: ENavOptions.manage },
+    { path: "/app/manage", label: ENavOptions.manage },
   ];
 
   const navMap = navOptions.map((option, key) => {
@@ -37,10 +34,10 @@ export function Navbar(props: INavbarProps) {
           margin: "0.25rem",
           borderRadius: "0.5rem",
           backgroundColor:
-            navSelect == option.label ? "var(--secondary-accent)" : "",
+            location.pathname == option.path ? "var(--secondary-accent)" : "",
         }}
         onClick={() => {
-          if (setNavSelect) setNavSelect(option.label);
+          navigate(option.path);
         }}
       >
         {option.label}
@@ -57,6 +54,7 @@ export function Navbar(props: INavbarProps) {
           display: "grid",
           gridTemplateColumns: "6rem auto 6rem",
           backgroundColor: "var(--primary-accent)",
+          boxShadow: "var(--primary-shadow)",
         }}
       >
         <div></div>

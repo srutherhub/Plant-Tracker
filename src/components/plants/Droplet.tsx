@@ -12,5 +12,12 @@ export default function Droplet(props: { plant: Plant }) {
       </i>
     );
   }
-  return <div></div>;
+  return (
+    <i
+      className="bi bi-circle-fill tooltip-item"
+      style={{ color: "var(--border)" }}
+    >
+      <p className="tooltip-text">{`Water on ${plant.getNextWateringDate()}`}</p>
+    </i>
+  );
 }

@@ -75,3 +75,22 @@
 .lib-button-secondary:hover {
   filter: brightness(0.9);
 }
+
+.lib-button-tertiary {
+  background-color: var(--quaternary-accent);
+  transition: filter 0.1s ease;
+  cursor: pointer;
+}
+.lib-button-tertiary:hover {
+  filter: brightness(0.9);
+}
+
+/*Animations*/
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
