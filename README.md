@@ -34,16 +34,16 @@ All APIs require the users id to be passed as a query param, ?id="1234"
 | POST       | `db/addplant`    |
 
 
-## Deployment
+# Deployment
 Both backend and frontend deployed on Raspberry PI 5 4gb
 Idle at ~1.3GB RAM usage
 
-# Build and deploy commands
-# Backend
+## Build and deploy commands
+## Backend
 npm run build
 node dist/main.js
 
-# Frontend
+## Frontend
 npm run build
 serve --single dist -p 5005
 (Using npm serve to serve the files instead of NGINX)
