@@ -19,7 +19,7 @@ export function PlantsTable(props: IPlantTableProps) {
   );
   const { data: updatePlantsContext, plants } = usePlants();
   const context = useAppContext();
-  const { setPlantsData: updateContext } = context;
+  const updateContext = context?.setPlantsData;
 
   const numTableCols: string = 100 / 3 + "%";
   const rowStyle = { padding: "0.5rem", width: numTableCols };
@@ -36,7 +36,7 @@ export function PlantsTable(props: IPlantTableProps) {
       throw new Error("Failed to water plant");
     }
     plants();
-    updateContext(updatePlantsContext);
+    if (updateContext) updateContext(updatePlantsContext);
   };
 
   const plantsMap = plantsData?.map((item: Plant, index: number) => {

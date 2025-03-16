@@ -1,4 +1,21 @@
-export function Box({ children, ...props }) {
+import React, { ReactNode } from "react";
+
+interface BoxProps extends React.HTMLAttributes<HTMLDivElement> {
+  children?: ReactNode;
+  display?: React.CSSProperties["display"];
+  alignItems?: React.CSSProperties["alignItems"];
+  flexDirection?: React.CSSProperties["flexDirection"];
+  flexWrap?: React.CSSProperties["flexWrap"];
+  borderBottom?: React.CSSProperties["borderBottom"];
+  padding?: React.CSSProperties["padding"];
+  width?: React.CSSProperties["width"];
+  height?: React.CSSProperties["height"];
+  backgroundColor?: React.CSSProperties["backgroundColor"];
+  justifyContent?: React.CSSProperties["justifyContent"];
+  alignContent?: React.CSSProperties["alignContent"];
+}
+
+export function Box({ children, ...props }: BoxProps) {
   return (
     <div
       {...props}
@@ -6,7 +23,7 @@ export function Box({ children, ...props }) {
         display: props.display || "flex",
         alignItems: props.alignItems || "",
         flexDirection: props.flexDirection || "column",
-        flexWrap: props.flexWrap || "",
+        flexWrap: props.flexWrap || undefined,
         borderBottom: props.borderBottom || "2px solid var(--border)",
         padding: props.padding || "0.5rem",
         width: props.width || "",
@@ -16,6 +33,7 @@ export function Box({ children, ...props }) {
         alignContent: props.alignContent || "",
         borderRadius: "var(--primary-border-rad)",
         boxShadow: "var(--primary-shadow)",
+        ...props.style, // Allows overriding inline styles
       }}
     >
       {children}

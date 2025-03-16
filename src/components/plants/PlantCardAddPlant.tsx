@@ -33,6 +33,17 @@ export function PlantCardAddPlant(props: IPlantCardAddPlantProps) {
       watering_frequency: plantFreq as number,
       last_watered: plantWaterDate,
       type: plantType,
+      id: "",
+      next_watering: "",
+      getLastWateredDate: function (): string {
+        throw new Error("Function not implemented.");
+      },
+      getNextWateringDate: function (): string {
+        throw new Error("Function not implemented.");
+      },
+      isWateringReqToday: function (): boolean {
+        throw new Error("Function not implemented.");
+      },
     };
     try {
       pushToast({ message: "Adding plant" });
