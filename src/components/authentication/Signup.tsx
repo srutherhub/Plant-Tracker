@@ -6,13 +6,15 @@ import { Navbar } from "../navbar/Navbar";
 import { useAuth } from "./useAuth";
 import { Link } from "react-router";
 
-export function Login() {
+export function Signup() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { error, auth } = useAuth({ endpoint: "authentication/signin" });
+  const [confPassword, setConfPassword] = useState("");
+  const { error, auth } = useAuth({ endpoint: "authentication/signup" });
 
   const handleOnClick = () => {
-    auth(email, password);
+    if (password != confPassword) console.log("hello");
+    else auth(email, password);
   };
 
   return (
@@ -32,15 +34,30 @@ export function Login() {
           gap="1rem"
           padding="4rem 0"
         >
-          <p>Sign in or Sign up</p>
+          <p>Sign up</p>
           <div
-            style={{ display: "inherit", flexDirection: "column", gap: "1rem" }}
+            style={{
+              display: "inherit",
+              flexDirection: "column",
+              gap: "1rem",
+            }}
           >
-            <TextInput placeholder="Email" setData={setEmail} />
+            <TextInput
+              placeholder="Email"
+              setData={setEmail}
+              autocomplete="off"
+            />
             <TextInput
               placeholder="Password"
               type="password"
               setData={setPassword}
+              autocomplete="new-password"
+            />
+            <TextInput
+              placeholder="Confirm password"
+              type="password"
+              setData={setConfPassword}
+              autocomplete="new-password"
             />
             <div
               style={{
@@ -50,8 +67,7 @@ export function Login() {
                 width: "16.5rem",
               }}
             >
-              <Link to="/passwordreset">Forgot password?</Link>
-              <Link to="/signup">Signup</Link>
+              <Link to="/auth">Sign in</Link>
             </div>
           </div>
           <div
@@ -64,7 +80,7 @@ export function Login() {
             <div style={{ width: "16.5rem" }}>
               <Button
                 type={EButtonTypes.tertiary}
-                name="Login"
+                name="Sign up"
                 onclick={handleOnClick}
               />
             </div>

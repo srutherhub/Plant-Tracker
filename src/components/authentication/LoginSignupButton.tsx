@@ -10,7 +10,7 @@ export const LoginSignupButton = () => {
 
   return (
     <Button
-      type={EButtonTypes.primary}
+      type={EButtonTypes.secondary}
       name="Login / Sign up"
       onclick={() => handleclick()}
     />

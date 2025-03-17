@@ -16,11 +16,12 @@ export function useAuth(props: IRequestOptions) {
   const redirect = useNavigate();
   const [session, setSession] = useState<null | string>(null);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<string | null>(null);
 
   const auth = useCallback(
     async (email?: string, password?: string) => {
       setLoading(true);
+      setError(null);
       try {
         const response = await fetch(fetch_url, {
           method: "POST",
@@ -28,9 +29,11 @@ export function useAuth(props: IRequestOptions) {
           body: JSON.stringify({ email, password }),
         });
         if (!response.ok) {
-          throw new Error("Failed to sign in or sign up");
+          const result = await response.json();
+          throw new Error(result.message);
         }
         const result = await response.json();
+
         setSession(result);
         if (endpoint == "authentication/signout") {
           sessionStorage.clear();
@@ -42,7 +45,12 @@ export function useAuth(props: IRequestOptions) {
         }
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } catch (err: any) {
-        setError(err.message || "An error occured");
+        if (
+          err.message == "result.session is null" &&
+          endpoint == "authentication/signup"
+        )
+          setError("Already signed up, sign in instead");
+        else setError(err.message || "An error occured");
       } finally {
         setLoading(false);
       }

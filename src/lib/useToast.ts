@@ -1,17 +1,13 @@
-import { useContext } from "react";
+import { createContext, useState } from "react";
 import { TToast } from "./ToastContainer";
-import { AppDataContext } from "../App";
+
+export const ToastProvider = createContext([] as TToast[]);
 
 export default function useToast() {
-  const context = useContext(AppDataContext);
-  const { toast, setToast } = context || {};
+  const [toast, setToast] = useState<TToast[]>([] as TToast[]);
 
   return function pushToast({ message }: TToast): void {
-    if (setToast) {
-      setToast([{ message }, ...(toast || [])]);
-      console.log(toast, message);
-    } else {
-      throw new Error("useToast must be used within a ToastDataProvider");
-    }
+    setToast([{ message }, ...(toast || [])]);
+    console.log(toast);
   };
 }

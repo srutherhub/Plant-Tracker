@@ -5,7 +5,6 @@ import { TextInput } from "../../lib/TextInput";
 import { Plant } from "../../models/plant";
 import { EPlantType } from "../../models/plant";
 import { useAddPlant } from "./useAddPlant";
-import useToast from "../../lib/useToast";
 interface IPlantCardAddPlantProps {
   onClose: (updateState?: boolean) => void;
 }
@@ -20,33 +19,21 @@ export function PlantCardAddPlant(props: IPlantCardAddPlantProps) {
   const [plantType, setPlantType] = useState<EPlantType>(EPlantType.indoor);
   const isEditable = true;
   const { error, addplant } = useAddPlant();
-  const pushToast = useToast();
   const handleSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setPlantType(e.target.value as EPlantType);
   };
 
   const handleAddPlant = async () => {
-    const input: Plant = {
+    const input = Plant.getNewPlant({
       name: plantName,
       species: plantSpecies,
       location: plantLocation,
       watering_frequency: plantFreq as number,
       last_watered: plantWaterDate,
       type: plantType,
-      id: "",
       next_watering: "",
-      getLastWateredDate: function (): string {
-        throw new Error("Function not implemented.");
-      },
-      getNextWateringDate: function (): string {
-        throw new Error("Function not implemented.");
-      },
-      isWateringReqToday: function (): boolean {
-        throw new Error("Function not implemented.");
-      },
-    };
+    } as Plant);
     try {
-      pushToast({ message: "Adding plant" });
       await addplant(input);
       onClose(true);
     } catch {

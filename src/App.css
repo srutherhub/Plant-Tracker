@@ -7,7 +7,7 @@
 
 #Icon:hover {
   cursor: pointer;
-  color: var(--secondary-accent);
+  color: var(--border);
 }
 
 /*App component*/
@@ -77,7 +77,7 @@
 }
 
 .lib-button-tertiary {
-  background-color: var(--quaternary-accent);
+  background-color: var(--primary-accent);
   transition: filter 0.1s ease;
   cursor: pointer;
 }

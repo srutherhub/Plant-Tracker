@@ -52,7 +52,7 @@ export function Navbar() {
       <div
         style={{
           display: "grid",
-          padding:"0 1rem",
+          padding: "0 1rem",
           gridTemplateColumns: "8rem auto 8rem",
           backgroundColor: "var(--primary-accent)",
           boxShadow: "var(--primary-shadow)",
@@ -60,7 +60,7 @@ export function Navbar() {
       >
         <div></div>
         <div style={navStyle}>{navMap}</div>
-        <div style={{ alignContent: "center"}}>
+        <div style={{ alignContent: "center" }}>
           <Logout />
         </div>
       </div>
@@ -71,14 +71,14 @@ export function Navbar() {
     <div
       style={{
         display: "grid",
-        padding:"0 1rem",
+        padding: "0 1rem",
         gridTemplateColumns: "8rem auto 8rem",
         backgroundColor: "var(--primary-accent)",
       }}
     >
       <div></div>
       <div style={navStyle}></div>
-      <div style={{ alignContent: "center"}}>
+      <div style={{ alignContent: "center" }}>
         <LoginSignupButton />
       </div>
     </div>

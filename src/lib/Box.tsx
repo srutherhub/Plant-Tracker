@@ -13,6 +13,7 @@ interface BoxProps extends React.HTMLAttributes<HTMLDivElement> {
   backgroundColor?: React.CSSProperties["backgroundColor"];
   justifyContent?: React.CSSProperties["justifyContent"];
   alignContent?: React.CSSProperties["alignContent"];
+  gap?: React.CSSProperties["gap"];
 }
 
 export function Box({ children, ...props }: BoxProps) {
@@ -33,6 +34,7 @@ export function Box({ children, ...props }: BoxProps) {
         alignContent: props.alignContent || "",
         borderRadius: "var(--primary-border-rad)",
         boxShadow: "var(--primary-shadow)",
+        gap: props.gap || 0,
         ...props.style, // Allows overriding inline styles
       }}
     >
