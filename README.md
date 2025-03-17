@@ -15,6 +15,7 @@ A webapp to track when to water your house plants and other things related to pl
 # APIs
 
 ## Authentication
+All APIs require the users id to be passed as a query param, ?id="1234"
 
 | **Method** | **Endpoint**             |
 | ---------- | ------------------------ |
@@ -31,3 +32,22 @@ A webapp to track when to water your house plants and other things related to pl
 | DELETE     | `db/deleteplant` |
 | PATCH      | `db/updateplant` |
 | POST       | `db/addplant`    |
+
+
+# Deployment
+Both backend and frontend deployed on Raspberry PI 5 4gb
+Idle at ~1.3GB RAM usage
+
+## Build and deploy commands
+## Backend
+npm run build
+node dist/main.js
+
+## Frontend
+npm run build
+serve --single dist -p 5005
+(Using npm serve to serve the files instead of NGINX)
+(--single important for react-router to work)
+
+Useful commands
+htop - monitor RAM usage on raspberry pi
