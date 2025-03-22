@@ -1,10 +1,11 @@
-import { Logout } from "../authentication/Logout";
+import { LogoName } from "../../lib/LogoName";
 import { LoginSignupButton } from "../authentication/LoginSignupButton";
 import { useNavigate, useLocation } from "react-router";
 
 export enum ENavOptions {
   dashboard = "Dashboard",
   manage = "Manage",
+  account = "Account",
 }
 
 export function Navbar() {
@@ -22,6 +23,7 @@ export function Navbar() {
   const navOptions = [
     { path: "/app", label: ENavOptions.dashboard },
     { path: "/app/manage", label: ENavOptions.manage },
+    { path: "/app/account", label: ENavOptions.account },
   ];
 
   const navMap = navOptions.map((option, key) => {
@@ -49,6 +51,40 @@ export function Navbar() {
 
   if (isLoggedIn) {
     return (
+      <div>
+        <div>
+          <LogoName />
+        </div>
+        <div
+          style={{
+            display: "flex-inline",
+            padding: "0 1rem",
+            backgroundColor: "var(--primary-accent)",
+            boxShadow: "var(--primary-shadow)",
+          }}
+        >
+          <div></div>
+          <div style={navStyle}>{navMap}</div>
+          <div style={{ alignContent: "center" }}></div>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div>
+      <div
+        style={{
+          display: "grid",
+          width: "100%",
+          alignItems: "center",
+          gridTemplateColumns: "8rem auto 8rem",
+        }}
+      >
+        <LogoName />
+        <div></div>
+        <LoginSignupButton />
+      </div>
       <div
         style={{
           display: "grid",
@@ -59,27 +95,8 @@ export function Navbar() {
         }}
       >
         <div></div>
-        <div style={navStyle}>{navMap}</div>
-        <div style={{ alignContent: "center" }}>
-          <Logout />
-        </div>
-      </div>
-    );
-  }
-
-  return (
-    <div
-      style={{
-        display: "grid",
-        padding: "0 1rem",
-        gridTemplateColumns: "8rem auto 8rem",
-        backgroundColor: "var(--primary-accent)",
-      }}
-    >
-      <div></div>
-      <div style={navStyle}></div>
-      <div style={{ alignContent: "center" }}>
-        <LoginSignupButton />
+        <div style={navStyle}></div>
+        <div style={{ alignContent: "center" }}></div>
       </div>
     </div>
   );

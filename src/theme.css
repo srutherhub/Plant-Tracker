@@ -28,9 +28,9 @@
 
 html {
   background-color: var(--base-bg);
-  font-family: "Inter", serif;
+  font-family: "Outfit", serif;
   color: var(--primary-font);
-  /* filter: invert(1); */
+  /* filter: invert(1) */
 }
 
 body {

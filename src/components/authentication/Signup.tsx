@@ -31,10 +31,10 @@ export function Signup() {
           width="24rem"
           alignItems="center"
           display="flex"
-          gap="1rem"
+          gap="2rem"
           padding="4rem 0"
         >
-          <p>Sign up</p>
+          <h3>Create an account</h3>
           <div
             style={{
               display: "inherit",

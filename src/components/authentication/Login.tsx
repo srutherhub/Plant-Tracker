@@ -29,10 +29,10 @@ export function Login() {
           width="24rem"
           alignItems="center"
           display="flex"
-          gap="1rem"
+          gap="2rem"
           padding="4rem 0"
         >
-          <p>Sign in or Sign up</p>
+          <h2>Welcome back</h2>
           <div
             style={{ display: "inherit", flexDirection: "column", gap: "1rem" }}
           >

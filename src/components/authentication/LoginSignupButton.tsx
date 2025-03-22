@@ -11,7 +11,7 @@ export const LoginSignupButton = () => {
   return (
     <Button
       type={EButtonTypes.secondary}
-      name="Login / Sign up"
+      name="Login"
       onclick={() => handleclick()}
     />
   );
