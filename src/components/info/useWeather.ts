@@ -9,7 +9,7 @@ export interface IWeatherInfo {
 export function useWeather() {
   const [data, setData] = useState<IWeatherInfo | undefined>();
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState();
+  const [error, setError] = useState("");
 
   const weather = useCallback(async (lat: number, lon: number) => {
     if (!lat || !lon) return { data, error, loading, weather };
@@ -41,7 +41,8 @@ export function useWeather() {
           })
         );
       } catch (err) {
-        setError(err.message || "An error occurred");
+        if (err instanceof Error) setError(err.message || "An error occurred");
+        else if (typeof err == "string") setError("Error occured");
       } finally {
         setLoading(false);
       }
