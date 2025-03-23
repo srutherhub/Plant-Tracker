@@ -32,6 +32,7 @@ All APIs require the users id to be passed as a query param, ?id="1234"
 | DELETE     | `db/deleteplant` |
 | PATCH      | `db/updateplant` |
 | POST       | `db/addplant`    |
+| POST       | `db/waterplant`  |
 
 
 # Deployment
