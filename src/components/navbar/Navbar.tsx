@@ -56,6 +56,7 @@ export function Navbar() {
           <LogoName />
         </div>
         <div
+          className="nav-container"
           style={{
             display: "flex-inline",
             padding: "0 1rem",

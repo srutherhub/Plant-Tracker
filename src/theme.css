@@ -30,12 +30,14 @@ html {
   background-color: var(--base-bg);
   font-family: "Outfit", serif;
   color: var(--primary-font);
+  scrollbar-width: thin;
   /* filter: invert(1) */
 }
 
 body {
   padding: 0;
   margin: 0;
+  overflow-x: hidden;
 }
 
 h1 {
