@@ -22,6 +22,10 @@ export function useAuth(props: IRequestOptions) {
     async (email?: string, password?: string) => {
       setLoading(true);
       setError(null);
+      if (endpoint == "authentication/signout") {
+        sessionStorage.clear();
+        redirect("/auth");
+      }
       try {
         const response = await fetch(fetch_url, {
           method: "POST",
@@ -35,10 +39,7 @@ export function useAuth(props: IRequestOptions) {
         const result = await response.json();
 
         setSession(result);
-        if (endpoint == "authentication/signout") {
-          sessionStorage.clear();
-          redirect("/auth");
-        } else {
+        if (endpoint != "authentication/signout") {
           sessionStorage.setItem("accessToken", result.session.access_token);
           sessionStorage.setItem("userId", result.session.user.id);
           redirect("/app");

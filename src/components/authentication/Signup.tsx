@@ -28,7 +28,7 @@ export function Signup() {
         }}
       >
         <Box
-          width="24rem"
+          width="22rem"
           alignItems="center"
           display="flex"
           gap="2rem"
