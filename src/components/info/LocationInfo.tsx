@@ -26,8 +26,13 @@ export function LocationInfo() {
 
   async function getLocation() {
     const location = (await getBrowserLoc()) as ICoords;
-    if (typeof location == "string") setCoords(JSON.parse(location));
-    else setCoords(location);
+    if (typeof location == "string") {
+      try {
+        setCoords(JSON.parse(location));
+      } catch (err) {
+        console.log(err);
+      }
+    } else setCoords(location);
 
     if (coords) weather(coords.lat, coords.lon);
   }
@@ -38,7 +43,7 @@ export function LocationInfo() {
 
   useEffect(() => {
     if (coords) weather(coords.lat, coords.lon);
-  }, [coords, weather]);
+  }, [coords]);
 
   return (
     <div style={{ display: "flex", gap: "0.5rem", alignItems: "center" }}>
