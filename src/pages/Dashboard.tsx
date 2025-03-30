@@ -65,6 +65,7 @@ export function Dashboard() {
           plantsAuditData={plantsAuditData}
         />
       )}
+      <div style={{ height: "4rem" }}></div>
     </div>
   );
 }
