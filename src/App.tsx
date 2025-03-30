@@ -5,10 +5,15 @@ import { Navbar } from "./components/navbar/Navbar";
 import { Outlet, useLocation, useNavigate } from "react-router";
 import { Plant } from "./models/plant";
 import { Dashboard } from "./pages/Dashboard";
+import { TPlantAudit } from "./components/plants/usePlantsAudit";
 
 interface IAppData {
   plantsData: Plant[] | undefined;
   setPlantsData: React.Dispatch<React.SetStateAction<Plant[] | undefined>>;
+  plantsAuditData: TPlantAudit | undefined;
+  setPlantsAuditData: React.Dispatch<
+    React.SetStateAction<TPlantAudit | undefined>
+  >;
 }
 
 export const AppDataContext = createContext<IAppData | undefined>(undefined);
@@ -16,6 +21,7 @@ export const AppDataContext = createContext<IAppData | undefined>(undefined);
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [plantsData, setPlantsData] = useState<Plant[]>();
+  const [plantsAuditData, setPlantsAuditData] = useState<TPlantAudit>();
   const { data, plants } = usePlants();
   const redirect = useNavigate();
   const location = useLocation();
@@ -45,7 +51,14 @@ function App() {
   return (
     <div>
       <Navbar />
-      <AppDataContext.Provider value={{ plantsData, setPlantsData }}>
+      <AppDataContext.Provider
+        value={{
+          plantsData,
+          setPlantsData,
+          plantsAuditData,
+          setPlantsAuditData,
+        }}
+      >
         <div className="app-container">
           {location.pathname === "/app" ? <Dashboard /> : <Outlet />}
         </div>

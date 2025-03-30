@@ -1,19 +1,25 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Box } from "../../lib/Box";
 import { TextInput } from "../../lib/TextInput";
 import { Button, EButtonTypes } from "../../lib/Button";
 import { Navbar } from "../navbar/Navbar";
 import { useAuth } from "./useAuth";
 import { Link } from "react-router";
+import { useNavigate } from "react-router";
 
 export function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { error, auth } = useAuth({ endpoint: "authentication/signin" });
+  const navigate = useNavigate();
 
   const handleOnClick = () => {
     auth(email, password);
   };
+
+  useEffect(() => {
+    if (sessionStorage.getItem("accessToken")) navigate("/app");
+  }, []);
 
   return (
     <div>

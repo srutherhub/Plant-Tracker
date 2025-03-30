@@ -3,6 +3,7 @@ import EmptyBox from "../lib/EmptyBox";
 import { Plant } from "../models/plant";
 import { useAppContext } from "../useAppContext";
 import { LocationInfo } from "../components/info/LocationInfo";
+import { PlantsAuditCalendar } from "../components/plants/PlantsAuditCalendar";
 
 interface ISortedPlants {
   today: Plant[];
@@ -12,6 +13,8 @@ interface ISortedPlants {
 export function Dashboard() {
   const context = useAppContext();
   const data = context?.plantsData;
+  const setPlantsAuditData = context?.setPlantsAuditData;
+  const plantsAuditData = context?.plantsAuditData;
 
   const sortedPlants: ISortedPlants = { today: [], later: [] };
   data?.forEach((item) => {
@@ -54,6 +57,13 @@ export function Dashboard() {
         ></EmptyBox>
       ) : (
         <PlantsTable title={"Hydrated"} data={sortedPlants.later} />
+      )}
+      {setPlantsAuditData && (
+        <PlantsAuditCalendar
+          data={data}
+          setPlantsAuditData={setPlantsAuditData}
+          plantsAuditData={plantsAuditData}
+        />
       )}
     </div>
   );

@@ -3,6 +3,8 @@ import { useCallback, useState } from "react";
 export interface IWeatherInfo {
   main: string;
   desc: string;
+  tempC: number;
+  tempF: number;
   hum: number;
 }
 
@@ -41,6 +43,8 @@ export function useWeather() {
             main: result.weather[0].main,
             desc: result.weather[0].description,
             hum: result.main.humidity,
+            tempC: result.main.temp - 273.15,
+            tempF: (result.main.temp - 273.15) * 1.8 + 32,
           });
           window.sessionStorage.setItem(
             "weather",
@@ -48,6 +52,8 @@ export function useWeather() {
               main: result.weather[0].main,
               desc: result.weather[0].description,
               hum: result.main.humidity,
+              tempC: result.main.temp - 273.15,
+              tempF: (result.main.temp - 273.15) * 1.8 + 32,
             })
           );
         } catch (err) {

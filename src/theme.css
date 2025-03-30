@@ -31,7 +31,7 @@ html {
   font-family: "Outfit", serif;
   color: var(--primary-font);
   scrollbar-width: thin;
-  /* filter: invert(1) */
+  /* filter: invert(); */
 }
 
 body {

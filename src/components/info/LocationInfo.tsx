@@ -48,14 +48,16 @@ export function LocationInfo() {
   return (
     <div style={{ display: "flex", gap: "0.5rem", alignItems: "center" }}>
       {data?.hum ? (
-        <TooltipItem>
-          <p>Humidity: {data?.hum}</p>
-          <TooltipText>{data ? humNote(data.hum ?? 50) : "50"}</TooltipText>
-        </TooltipItem>
+        <>
+          <TooltipItem>
+            <p>Humidity: {data?.hum}</p>
+            <TooltipText>{data ? humNote(data.hum ?? 50) : "50"}</TooltipText>
+          </TooltipItem>
+          <p>{`${data?.tempC.toFixed(0)}°C | ${data?.tempF.toFixed(0)}°F`}</p>
+        </>
       ) : (
         ""
       )}
-
       <TooltipItem>
         <Icon
           iconName={EWeatherIcon[data?.main as keyof typeof EWeatherIcon]}
