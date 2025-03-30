@@ -30,7 +30,7 @@ export function PlantsAuditCalendar(props: IPlantsAuditProps) {
   if (!plantsAuditData)
     return (
       <EmptyBox
-        title="Watered"
+        title="History"
         text="No plants have been watered yet!"
       ></EmptyBox>
     );
@@ -53,7 +53,7 @@ export function PlantsAuditCalendar(props: IPlantsAuditProps) {
 
   return (
     <Box padding="1rem" display="flex" flexDirection="column" gap="0.5rem">
-      <h3>Watered</h3>
+      <h3>History</h3>
       {map}
     </Box>
   );

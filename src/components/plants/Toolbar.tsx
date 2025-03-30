@@ -5,6 +5,7 @@ import { Button, EButtonTypes } from "../../lib/Button";
 import { Modal } from "../../lib/Modal";
 import { PlantCardAddPlant } from "./PlantCardAddPlant";
 import { usePlants } from "./usePlants";
+import { TextInput } from "../../lib/TextInput";
 
 enum ESortBy {
   default,
@@ -12,7 +13,8 @@ enum ESortBy {
   lastWatered,
 }
 
-export function Toolbar() {
+export function Toolbar(props: { setSearch: (search: string) => void }) {
+  const { setSearch } = props;
   const context = useAppContext();
   const setPlantsData = context?.setPlantsData;
   const [searchParams, setSearchParams] = useSearchParams();
@@ -57,6 +59,9 @@ export function Toolbar() {
     >
       <h1>Manage plants</h1>
       <div style={{ display: "flex", alignItems: "center", flexWrap: "wrap" }}>
+        <div>
+          <TextInput setData={setSearch} placeholder="Search" />
+        </div>
         <div style={{ paddingRight: "0.5rem" }}>
           <select onChange={handleSelect} value={searchParams.get("sort") || 0}>
             <option value={ESortBy.default}>{"Sort"}</option>
