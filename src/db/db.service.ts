@@ -110,4 +110,26 @@ export class DbService {
     }
     return { data, audit_data };
   }
+
+  async getWateredAudit(userId: string, plantIds: string[]) {
+    const output = {};
+    const supabase = await this.authenticationService.dbConnection();
+    if (!userId) throw new Error("No ID provided");
+    const { data, error } = await supabase
+      .from("plants_audit")
+      .select("*, plants(name)")
+      .in("id", plantIds)
+      .order("created_at", { ascending: false });
+    if (error) {
+      throw new Error(error.message);
+    }
+    if (data.length === 0) return null;
+
+    for (let i = 0; i < data.length; i++) {
+      const date = new Date(data[i].created_at).toLocaleDateString();
+      if (!output[date]) output[date] = [data[i].plants.name];
+      else output[date].push(data[i].plants.name);
+    }
+    return output;
+  }
 }

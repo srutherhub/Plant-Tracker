@@ -48,4 +48,10 @@ export class DbController {
   async waterplant(@Body() body: { plant: Plant }, @Query("id") id: string) {
     return this.dbService.waterPlant(body.plant, id);
   }
+
+  @Post("getplantaudit")
+  @UseGuards(AuthGuard)
+  async getPlantAudit(@Body() input: string[], @Query("id") id: string) {
+    return this.dbService.getWateredAudit(id, input);
+  }
 }
